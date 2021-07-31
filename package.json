@@ -1,0 +1,22 @@
+{
+  "name": "p7_groupomania",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliendardennes/P7_groupomania_28072021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juliendardennes/P7_groupomania_28072021/issues"
+  },
+  "homepage": "https://github.com/juliendardennes/P7_groupomania_28072021#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
