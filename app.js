@@ -1,11 +1,13 @@
-const mysql = require("mysql");
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "juliendardennes",
-  password: "Criminals13",
-  database: "database name",
+// importer Express (node JS Framework)
+const express = require("express");
+
+const http = require("http");
+
+//Créer une application Express.
+const app = express();
+
+app.use((req, res) => {
+  res.json({ message: "Votre requête a bien été reçue !" });
 });
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("Connected!");
-});
+
+module.exports = app;
