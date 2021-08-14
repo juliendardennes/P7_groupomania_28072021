@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: aucun test spécifié \" && exit 1"
+    "test": "echo \"Error: aucun test spécifié \" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,13 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "multer": "^1.4.3",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.0",
     "sequelize": "^6.6.5"
   }
 }
