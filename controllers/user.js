@@ -11,46 +11,30 @@ const jwt = require("jsonwebtoken");
 //---Importer le modèle de l'utilisateur
 const User = require("../models/User");
 
-//---- mise en place de Regex
-const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
-const regexPassword =
-  /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
 //---fonction signup, sauvegarde d'un nouvel utilisateur--
-exports.signgup = (req, res, next) => {
-  if (
-    req.body.email == null ||
-    req.body.password == null ||
-    req.body.lastname == null ||
-    req.body.firstname == null
-  ) {
-    return res.status(400).json({ error: "Données incomplètes" });
-  }
-  if (!regexEmail.test(req.body.email)) {
-    return res.status(400).json({ error: "Email non validé" });
-  }
-  if (!regexPassword.test(req.body.password)) {
-    return res.status(400).json({ error: "Mot de passe non validé" });
-  }
-  User.create = (req, res, next) => {
-    bcrypt
-      .hash(req.body.password, 10)
-      .then((hash) => {
-        const user = new User({
-          email: MD5(req.body.email).toString(),
-          password: hash,
-        });
-        user
-          .save()
-          .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-          .catch((error) => res.status(400).json({ error }));
+exports.signup = (req, res, next) => {
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) => {
+      User.create({
+        email: req.body.email,
+        password: hash,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
       })
-      .catch((error) => res.status(500).json({ error }));
-  };
+        .then((user) => {
+          res.status(201).json(user, { message: "utilisateur crée !" });
+        })
+        .catch((error) =>
+          res.status(400).json({ error: "Utilisateur déjà existant" })
+        );
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 //---fonction login - vérifie si un utilisateur existe---
 exports.login = (req, res, next) => {
+  console.log("toto");
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
@@ -62,12 +46,19 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
+          // si comparaison ok, on renvoit un objet JSON contenant
           res.status(200).json({
+            // l'userId
             userId: user._id,
-            //--encoder un nouveau token--
-            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
-              expiresIn: "24h",
-            }),
+            // un token - fonction sign de jsonwebtoken
+            token: jwt.sign(
+              // 1er argument: données à encoder
+              { userId: user._id },
+              // 2eme: clé secrète encodage
+              "RANDOM_TOKEN_SECRET",
+              // 3eme: argument de configuration
+              { expiresIn: "24h" }
+            ),
           });
         })
         .catch((error) => res.status(500).json({ error }));
