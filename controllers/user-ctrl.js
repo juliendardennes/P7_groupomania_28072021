@@ -9,9 +9,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //---Importer le modèle de l'utilisateur
-const User = require("../models/User");
+const User = require("../models/user-model");
 
-//---fonction signup, sauvegarde d'un nouvel utilisateur--
+//---fonction signup, nouvel utilisateur--
 exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
@@ -34,17 +34,18 @@ exports.signup = (req, res, next) => {
 
 //---fonction login - vérifie si un utilisateur existe---
 exports.login = (req, res, next) => {
-  console.log("toto");
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
-        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+        return res.status(401).json({ error: "l'email est incorrect !" });
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({ error: "Mot de passe incorrect !" });
+            return res
+              .status(401)
+              .json({ error: " le mot de passe est incorrect !" });
           }
           // si comparaison ok, on renvoit un objet JSON contenant
           res.status(200).json({
