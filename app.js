@@ -10,15 +10,17 @@ const path = require("path");
 // Helmet vous aide à sécuriser vos applications Express en définissant divers en-têtes HTTP
 const helmet = require("helmet");
 
-const Sequelize = require("sequelize");
-
-const User = require("./models/user-model");
+// const Sequelize = require("sequelize");
+// const User = require("./models/user-model");
 
 // importation de la route post
 const postRoutes = require("./routes/post-route");
 
 //importation de la route user
 const userRoutes = require("./routes/user-route");
+
+//importation de la route commentaire
+const commentRoutes = require("./routes/comment-route");
 
 //Utiliser express
 const app = express();
@@ -43,10 +45,13 @@ app.use(bodyParser.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-// route pour les posts
-app.use("/api/post", postRoutes);
-
 // route pour l'utilisateur
-app.use("/api/user", userRoutes);
+app.use("/api/auth", userRoutes);
+
+// route pour les posts
+app.use("/api/posts", postRoutes);
+
+// route pour les commentaires
+app.use("/api/comments", commentRoutes);
 
 module.exports = app;

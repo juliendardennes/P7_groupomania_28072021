@@ -16,7 +16,7 @@ const multer = require("../middleware/multer-config");
 //---Route pour créer un post : Capture et enregistre l'image,---
 //---analyse le post à l'aide d'une chaîne et l'enregistre---
 //---dans la base de données, en définissant correctement son URL image---
-router.post("/", multer, postControl.createPost);
+router.post("/", auth, multer, postControl.createPost);
 
 // // //---Route pour mettre à jour un post : Met à jour un post avec l'ID fourni---
 router.put("/:id", auth, multer, postControl.modifyPost);
@@ -26,6 +26,8 @@ router.delete("/:id", auth, postControl.deletePost);
 
 //---Route pour obtenir tous les posts : renvoie
 //---le tableau de tous les posts dans la base de données---
-router.get("/", postControl.getAllPost);
+router.get("/", auth, postControl.getAllPost);
+
+router.get("/:id", auth, postControl.getOnePost);
 
 module.exports = router;

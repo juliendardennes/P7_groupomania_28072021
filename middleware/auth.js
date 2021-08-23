@@ -12,6 +12,7 @@ module.exports = (req, res, next) => {
       throw "User ID non valable"; // Throw pour renvoyer l'erreur //
     } else {
       next(); // Tout est ok donc, on passe au prochain middleware //
+      console.log("hello");
     }
   } catch (error) {
     res.status(401).json({ error: new Error("requête invalide!") });
