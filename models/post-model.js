@@ -1,20 +1,46 @@
-const model = require("sequelize");
+const Sequelize = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
-  var Post = sequelize.define("Post", {
-    userId: DataTypes.INTEGER,
-    title: DataTypes.STRING,
-    content: DataTypes.TEXT,
-    image: DataTypes.STRING,
-  });
+const sequelize = new Sequelize(
+  "groupomania",
+  "juliendardennes",
+  "Criminals13",
+  {
+    host: "localhost",
+    dialect: "mysql",
+  }
+);
 
-  Post.associate = function (models) {
-    //Associations can be define here//
-    Post.belongsTo(models.User, {
-      foreignKey: "userId",
-      as: "user",
-      onDelete: "CASCADE", // Si on supprime un user, on supprime ses messages //
-    });
-  };
-  return Message;
-};
+try {
+  sequelize.authenticate();
+  console.log("connexion reussi");
+} catch (error) {
+  console.log("connexion pas reussi");
+}
+
+const Post = sequelize.define("post", {
+  //définition des attributs du modèle
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true,
+    allowNull: true,
+  },
+  title: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  content: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  user_id: {
+    type: Sequelize.UUID,
+    allowNull: true,
+  },
+});
+
+Post.sync({
+  alter: true,
+});
+
+module.exports = Post;

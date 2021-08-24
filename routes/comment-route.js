@@ -7,12 +7,10 @@ const router = express.Router();
 //---Importer l'authentification : obtenez la configuration d'authentification JsonWebToken---
 const auth = require("../middleware/auth");
 
-//---Importer les contrôleurs de post. Les fonctions sont associées aux différentes routes---
-const commentControl = require("../controllers/comment-ctrl");
+// Importer les contrôleurs de commentaires.
+const commentCtrl = require("../controllers/comment-ctrl");
 
-router.post("/new", auth, commentControl.createComment);
-router.get("/:id/display", auth, commentControl.getAllComment);
-router.get("/:id", auth, commentControl.getOneComment);
-router.delete("/:id", auth, commentControl.deleteComment);
-
-module.exports = router;
+// route pour créer un commentaire
+router.post("/:id/comments", auth, commentCtrl.createOneComment);
+// route pour supprimer un commentaire
+router.delete("/:id/comments", auth, commentCtrl.deleteOneComment);

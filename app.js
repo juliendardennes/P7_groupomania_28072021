@@ -10,8 +10,9 @@ const path = require("path");
 // Helmet vous aide à sécuriser vos applications Express en définissant divers en-têtes HTTP
 const helmet = require("helmet");
 
-// const Sequelize = require("sequelize");
-// const User = require("./models/user-model");
+const User = require("./models/user-model");
+const Post = require("./models/post-model");
+const Comment = require("./models/comment-model");
 
 // importation de la route post
 const postRoutes = require("./routes/post-route");

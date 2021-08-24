@@ -1,39 +1,23 @@
 const Comment = require("../models/comment-model");
+const comment = require("../routes/comment-route");
 
-// Création d'un commentaire //
-exports.createComment = (req, res, next) => {
-  const comment = {
-    userId: req.decodedToken.userId,
-    messageId: req.body.messageId,
+// creation d'un commentaire
+exports.createOneComment = (req, res, next) => {
+  Comment.create({
+    post_id: req.body.user_id,
     content: req.body.content,
-  };
-  Comment.create(comment)
-    .then(() => res.status(201).json({ message: "Commentaire envoyé !" }))
-    .catch((error) => res.status(400).json({ error }));
-};
-
-// Obtention des commentaires //
-exports.getAllComment = (req, res, next) => {
-  Comment.findAll({
-    where: { messageId: req.params.id },
+    title: req.body.title,
   })
-    .then((comments) => res.status(200).json(comments))
+    .then(() => res.status(201).json({ message: "commentaire crée" }))
     .catch((error) => res.status(400).json({ error }));
-};
-
-// Obtention d'un commentaire //
-exports.getOneComment = (req, res, next) => {
-  Comment.findOne({ where: { id: req.params.id } })
-    .then((comment) => res.status(200).json(message))
-    .catch((error) => res.status(404).json({ error }));
 };
 
 // Suppression d'un commentaire //
-exports.deleteComment = (req, res, next) => {
-  Comment.findOne({ where: { id: req.params.id } }) // On trouve l'objet dans la base de données //
+exports.deleteOneComment = (req, res, next) => {
+  Comment.findOne({ where: { id: req.params.id } })
     .then((comment) => {
       Comment.destroy({ where: { id: req.params.id } }) // Méthode //
-        .then(() => res.status(200).json({ message: "Réponse supprimée" }))
+        .then(() => res.status(200).json({ message: "commentaire supprimé" }))
         .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));

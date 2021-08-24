@@ -1,20 +1,42 @@
-const Model = require("sequelize");
+const Sequelize = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
-  var Comment = sequelize.define("Comment", {
-    userId: DataTypes.INTEGER,
-    messageId: DataTypes.INTEGER,
-    content: DataTypes.TEXT,
-  });
+const sequelize = new Sequelize(
+  "groupomania",
+  "juliendardennes",
+  "Criminals13",
+  {
+    host: "localhost",
+    dialect: "mysql",
+  }
+);
 
-  Comment.associate = function (models) {
-    Comment.belongsTo(models.User, {
-      foreignKey: "userId",
-    });
-    Comment.belongsTo(models.Message, {
-      foreignKey: "messageId",
-      onDelete: "CASCADE", // Si on supprime un post, on supprime ses commentaires //
-    });
-  };
-  return Comment;
-};
+try {
+  sequelize.authenticate();
+  console.log("connexion reussi");
+} catch (error) {
+  console.log("connexion pas reussi");
+}
+
+const Comment = sequelize.define("comment", {
+  //définition des attributs du modèle
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true,
+    allowNull: true,
+  },
+  content: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  post_id: {
+    type: Sequelize.UUID,
+    allowNull: true,
+  },
+});
+
+Comment.sync({
+  alter: true,
+});
+
+module.exports = Comment;

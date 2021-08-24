@@ -23,7 +23,7 @@ exports.signup = (req, res, next) => {
         lastName: req.body.lastName,
       })
         .then((user) => {
-          res.status(201).json(user, { message: "utilisateur crée !" });
+          res.status(201).json(user);
         })
         .catch((error) =>
           res.status(400).json({ error: "Utilisateur déjà existant" })
@@ -63,6 +63,17 @@ exports.login = (req, res, next) => {
           });
         })
         .catch((error) => res.status(500).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+// Suppression d'un compte //
+exports.deleteUser = (req, res, next) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      User.destroy({ where: { id: req.params.id } }) // Méthode //
+        .then(() => res.status(200).json({ message: "Compte supprimé" }))
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
