@@ -13,10 +13,8 @@ const userCtrl = require("../controllers/user-ctrl");
 
 //---Route pour créer l'utilisateur---
 router.post("/signup", userCtrl.signup);
-
-//---Route vers l'utilisateur de connexion---
+//---Route pour se connecter---
 router.post("/login", userCtrl.login);
-
 // route pour supprimer l'utilisateur
 router.delete("/:id", auth, userCtrl.deleteUser);
 

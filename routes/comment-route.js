@@ -7,10 +7,13 @@ const router = express.Router();
 //---Importer l'authentification : obtenez la configuration d'authentification JsonWebToken---
 const auth = require("../middleware/auth");
 
-// Importer les contrôleurs de commentaires.
-const commentCtrl = require("../controllers/comment-ctrl");
+//---Importer les contrôleurs de post
+const postControl = require("../controllers/comment-ctrl");
 
-// route pour créer un commentaire
-router.post("/:id/comments", auth, commentCtrl.createOneComment);
-// route pour supprimer un commentaire
-router.delete("/:id/comments", auth, commentCtrl.deleteOneComment);
+//---Import Multer: Manage images---
+const multer = require("../middleware/multer-config");
+
+router.post("/:id/comments", auth, postControl.addComment);
+router.delete("/comments/:id", auth, postControl.deleteComment);
+
+module.exports = router;

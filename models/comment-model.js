@@ -29,7 +29,7 @@ const Comment = sequelize.define("comment", {
     type: Sequelize.TEXT,
     allowNull: true,
   },
-  post_id: {
+  user_id: {
     type: Sequelize.UUID,
     allowNull: true,
   },

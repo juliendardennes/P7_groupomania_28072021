@@ -67,7 +67,7 @@ exports.login = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-// Suppression d'un compte //
+// // Suppression d'un compte //
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {

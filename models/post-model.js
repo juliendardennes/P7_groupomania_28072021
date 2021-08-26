@@ -33,6 +33,10 @@ const Post = sequelize.define("post", {
     type: Sequelize.TEXT,
     allowNull: true,
   },
+  media: {
+    type: Sequelize.STRING(255),
+    allowNull: false,
+  },
   user_id: {
     type: Sequelize.UUID,
     allowNull: true,

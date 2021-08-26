@@ -14,9 +14,8 @@ const postControl = require("../controllers/post-ctrl");
 const multer = require("../middleware/multer-config");
 
 //---Route pour créer un post
-router.post("/", auth, postControl.createPost);
-
-//---Route pour supprimer un post : Supprimer le post avec l'identifiant fourni---
-router.delete("/:id", auth, postControl.deletePost);
+router.post("/", auth, multer, postControl.createPost);
+//---Route pour supprimer un post : Supprimer le post ---
+router.delete("/:id", auth, multer, postControl.deletePost);
 
 module.exports = router;

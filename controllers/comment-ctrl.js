@@ -2,7 +2,7 @@ const Comment = require("../models/comment-model");
 const comment = require("../routes/comment-route");
 
 // creation d'un commentaire
-exports.createOneComment = (req, res, next) => {
+exports.addComment = (req, res, next) => {
   Comment.create({
     post_id: req.body.user_id,
     content: req.body.content,
@@ -13,7 +13,7 @@ exports.createOneComment = (req, res, next) => {
 };
 
 // Suppression d'un commentaire //
-exports.deleteOneComment = (req, res, next) => {
+exports.deleteComment = (req, res, next) => {
   Comment.findOne({ where: { id: req.params.id } })
     .then((comment) => {
       Comment.destroy({ where: { id: req.params.id } }) // Méthode //
