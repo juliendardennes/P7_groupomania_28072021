@@ -6,8 +6,6 @@ const router = express.Router();
 
 const auth = require("../middleware/auth");
 
-const multer = require("../middleware/multer-config");
-
 //---Importer les contrôleurs des utilisateurs---
 const userCtrl = require("../controllers/user-ctrl");
 
@@ -17,5 +15,11 @@ router.post("/signup", userCtrl.signup);
 router.post("/login", userCtrl.login);
 // route pour supprimer l'utilisateur
 router.delete("/:id", auth, userCtrl.deleteUser);
+// route pour récuperer un utilisateur
+router.get("/:id", auth, userCtrl.getOneUser);
+// route pour récupérer tous les utilisateurs
+router.get("/users", auth, userCtrl.getAllUsers);
+// route pour modifier un utilisateur
+router.put("/:id", auth, userCtrl.modifyUser);
 
 module.exports = router;

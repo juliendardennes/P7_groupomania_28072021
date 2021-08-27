@@ -17,10 +17,6 @@ const commentRoutes = require("./routes/comment-route");
 //Utiliser express
 const app = express();
 
-// const User = require("./models/user-model");
-// const Post = require("./models/post-model");
-// const Comment = require("./models/comment-model");
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // On accéde à l'API depuis diverses origines //
   res.setHeader(
