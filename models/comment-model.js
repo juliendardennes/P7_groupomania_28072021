@@ -33,6 +33,10 @@ const Comment = sequelize.define("comment", {
     type: Sequelize.UUID,
     allowNull: true,
   },
+  post_id: {
+    type: Sequelize.UUID,
+    allowNull: true,
+  },
 });
 
 Comment.sync({

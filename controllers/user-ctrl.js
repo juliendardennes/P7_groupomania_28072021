@@ -11,32 +11,33 @@ const jwt = require("jsonwebtoken");
 //---Importer le modèle de l'utilisateur
 const User = require("../models/user-model");
 
-// ------------Regex------------------
-const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
-const regexPassword =
-  /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+// // ------------Regex------------------
+// const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
+// const regexPassword =
+//   /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-// ---fonction signup, nouvel utilisateur--
+// ---fonction signup, création nouvel utilisateur--
 exports.signup = (req, res, next) => {
-  if (
-    req.body.email == null ||
-    req.body.password == null ||
-    req.body.lastname == null ||
-    req.body.firstname == null
-  ) {
-    return res.status(400).json({ error: "Données incomplètes" });
-  }
-  if (!regexEmail.test(req.body.email)) {
-    return res.status(400).json({ error: "Email non validé" });
-  }
-  if (!regexPassword.test(req.body.password)) {
-    return res.status(400).json({ error: "Mot de passe non validé" });
-  }
+  // if (
+  //   req.body.email == null ||
+  //   req.body.password == null ||
+  //   req.body.lastname == null ||
+  //   req.body.firstname == null
+  // ) {
+  //   return res.status(400).json({ error: "Données incomplètes" });
+  // }
+  // if (!regexEmail.test(req.body.email)) {
+  //   return res.status(400).json({ error: "Email non validé" });
+  // }
+  // if (!regexPassword.test(req.body.password)) {
+  //   return res.status(400).json({ error: "Mot de passe non validé" });
+  // }
   User.findOne({
     attributes: ["email"],
     where: { email: req.body.email },
   }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
     .then((user) => {
+      console.log(user);
       if (!user) {
         bcrypt
           .hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonction async//
@@ -47,10 +48,14 @@ exports.signup = (req, res, next) => {
               firstname: req.body.firstname,
               lastname: req.body.lastname,
             }).then((user) => {
-              res.status(201).json({ message: "Utilisateur créé !" });
+              res.status(201).json(user);
             });
           })
           .catch((error) => res.status(400).json({ error }));
+      } else {
+        res
+          .status(400)
+          .json({ message: "un utilisateur avec cet email existe déjà" });
       }
     })
 
@@ -59,7 +64,7 @@ exports.signup = (req, res, next) => {
     );
 };
 
-//---fonction login - vérifie si un utilisateur existe---
+//---fonction login - vérifie si un utilisateur existe déjà ---
 exports.login = (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {

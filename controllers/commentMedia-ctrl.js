@@ -1,22 +1,22 @@
-const Comment = require("../models/comment-model");
-const comment = require("../routes/comment-route");
+const CommentMedia = require("../models/commentMedia-model");
+const commentMedia = require("../routes/commentMedia-route");
 
 // création d'un commentaire
-exports.createComment = (req, res, next) => {
-  Comment.create({
+exports.createCommentMedia = (req, res, next) => {
+  CommentMedia.create({
     user_id: req.body.user_id,
     content: req.body.content,
     title: req.body.title,
   })
-    .then((comment) => res.status(201).json(comment))
+    .then((commentMedia) => res.status(201).json(commentMedia))
     .catch((error) => res.status(400).json({ error }));
 };
 
 // Suppression d'un commentaire //
-exports.deleteComment = (req, res, next) => {
-  Comment.findOne({ where: { id: req.params.id } })
-    .then((comment) => {
-      Comment.destroy({ where: { id: req.params.id } })
+exports.deleteCommentmedia = (req, res, next) => {
+  CommentMedia.findOne({ where: { id: req.params.id } })
+    .then((commentMedia) => {
+      CommentMedia.destroy({ where: { id: req.params.id } })
         .then(() => res.status(200).json({ message: "commentaire supprimé" }))
         .catch((error) => res.status(400).json({ error }));
     })
@@ -24,10 +24,10 @@ exports.deleteComment = (req, res, next) => {
 };
 
 //-----modifier un commentaire-----
-exports.modifyComment = (req, res, next) => {
-  Comment.findOne({ where: { id: req.params.id } })
-    .then((comment) => {
-      Comment.update(
+exports.modifyCommentMedia = (req, res, next) => {
+  CommentMedia.findOne({ where: { id: req.params.id } })
+    .then((commentMedia) => {
+      CommentMedia.update(
         {
           title: req.body.title,
           message: req.body.message,
@@ -45,10 +45,10 @@ exports.modifyComment = (req, res, next) => {
 };
 
 //récupérer tous les commentaires.
-exports.getAllComments = (req, res, next) => {
-  Comment.findAll({ order: [["id", "DESC"]] })
-    .then((comment) => {
-      res.status(200).json(comment);
+exports.getAllCommentsMedia = (req, res, next) => {
+  CommentMedia.findAll({ order: [["id", "DESC"]] })
+    .then((commentMedia) => {
+      res.status(200).json(commentMedia);
     })
     .catch((error) => {
       res.status(400).json({ error });
@@ -56,10 +56,10 @@ exports.getAllComments = (req, res, next) => {
 };
 
 //récupérer un commentaire.
-exports.getOneComment = (req, res, next) => {
-  Comment.findOne({ where: { id: req.params.id } })
-    .then((comment) => {
-      res.status(200).json(comment);
+exports.getOneCommentMedia = (req, res, next) => {
+  CommentMedia.findOne({ where: { id: req.params.id } })
+    .then((commentMedia) => {
+      res.status(200).json(commentMedia);
     })
     .catch((error) => {
       res.status(404).json({ error });

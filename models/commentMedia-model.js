@@ -17,16 +17,12 @@ try {
   console.log("connexion pas reussi");
 }
 
-const Post = sequelize.define("post", {
+const commentMedia = sequelize.define("commentMedia", {
   //définition des attributs du modèle
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
-    allowNull: true,
-  },
-  title: {
-    type: Sequelize.TEXT,
     allowNull: true,
   },
   content: {
@@ -37,10 +33,14 @@ const Post = sequelize.define("post", {
     type: Sequelize.UUID,
     allowNull: true,
   },
+  post_id: {
+    type: Sequelize.UUID,
+    allowNull: true,
+  },
 });
 
-Post.sync({
+commentMedia.sync({
   alter: true,
 });
 
-module.exports = Post;
+module.exports = commentMedia;

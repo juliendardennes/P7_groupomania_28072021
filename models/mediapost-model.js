@@ -17,7 +17,7 @@ try {
   console.log("connexion pas reussi");
 }
 
-const Post = sequelize.define("post", {
+const Media = sequelize.define("media", {
   //définition des attributs du modèle
   id: {
     type: Sequelize.UUID,
@@ -25,13 +25,9 @@ const Post = sequelize.define("post", {
     primaryKey: true,
     allowNull: true,
   },
-  title: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
-  content: {
-    type: Sequelize.TEXT,
-    allowNull: true,
+  media: {
+    type: Sequelize.STRING(255),
+    allowNull: false,
   },
   user_id: {
     type: Sequelize.UUID,
@@ -39,8 +35,8 @@ const Post = sequelize.define("post", {
   },
 });
 
-Post.sync({
+Media.sync({
   alter: true,
 });
 
-module.exports = Post;
+module.exports = Media;

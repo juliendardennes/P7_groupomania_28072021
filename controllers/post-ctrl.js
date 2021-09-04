@@ -7,9 +7,8 @@ exports.createPost = (req, res, next) => {
     user_id: req.body.user_id,
     content: req.body.content,
     title: req.body.title,
-    media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   })
-    .then(() => res.status(201).json({ message: "post crée" }))
+    .then((post) => res.status(201).json(post))
     .catch((error) => res.status(400).json({ error }));
 };
 
@@ -17,14 +16,9 @@ exports.createPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
-      const filename = post.media.split("/images/")[1];
-      fs.unlink("images/" + filename, () => {
-        Post.destroy({ where: { id: req.params.id } })
-          .then(() =>
-            res.status(200).json({ message: " le post a été supprimé!" })
-          )
-          .catch((error) => res.status(400).json({ error }));
-      });
+      Post.destroy({ where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: "post supprimé" }))
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -33,33 +27,24 @@ exports.deletePost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
-      const filename = post.media.split("/images/")[1];
-      fs.unlink("images/" + filename, () => {
-        Post.update(
-          {
-            title: req.body.title,
-            message: req.body.message,
-            media:
-              req.protocol +
-              "://" +
-              req.get("host") +
-              "/images/" +
-              req.file.filename,
-          },
-          { where: { id: req.params.id } }
-        )
-          .then(() => {
-            res.status(201).json({ message: "l'image est à jour" });
-          })
-          .catch((error) => {
-            res.status(404).json({ error });
-          });
-      });
+      Post.update(
+        {
+          title: req.body.title,
+          message: req.body.message,
+        },
+        { where: { id: req.params.id } }
+      )
+        .then(() => {
+          res.status(201).json({ message: "l'image est à jour" });
+        })
+        .catch((error) => {
+          res.status(404).json({ error });
+        });
     })
     .catch((error) => res.status(500).json({ error }));
 };
 
-//Middleware to get all posts.
+//récupérer tous posts.
 exports.getAllPosts = (req, res, next) => {
   Post.findAll({ order: [["id", "DESC"]] })
     .then((post) => {
@@ -70,7 +55,7 @@ exports.getAllPosts = (req, res, next) => {
     });
 };
 
-//Middleware to get one post.
+//récupérer un post.
 exports.getOnePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {

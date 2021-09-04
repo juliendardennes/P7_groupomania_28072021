@@ -13,6 +13,10 @@ const userRoutes = require("./routes/user-route");
 const postRoutes = require("./routes/post-route");
 //importation de la route commentaire
 const commentRoutes = require("./routes/comment-route");
+// importation de la route post médias
+const mediaRoutes = require("./routes/mediapost-route");
+// importation de la route commentaire média
+const commentMediaRoutes = require("./routes/commentMedia-route");
 
 //Utiliser express
 const app = express();
@@ -41,5 +45,9 @@ app.use("/api/auth", userRoutes);
 app.use("/api/posts", postRoutes);
 //route pour les commentaires
 app.use("/api/comments", commentRoutes);
+// route pour les posts médias
+app.use("/api/mediapost", mediaRoutes);
+// route pour les commentaires médias
+app.use("/api/commentMedia", commentMediaRoutes);
 
 module.exports = app;
