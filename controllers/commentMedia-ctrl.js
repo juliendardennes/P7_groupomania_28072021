@@ -5,8 +5,8 @@ const commentMedia = require("../routes/commentMedia-route");
 exports.createCommentMedia = (req, res, next) => {
   CommentMedia.create({
     user_id: req.body.user_id,
+    post_id: req.body.post_id,
     content: req.body.content,
-    title: req.body.title,
   })
     .then((commentMedia) => res.status(201).json(commentMedia))
     .catch((error) => res.status(400).json({ error }));
@@ -26,16 +26,13 @@ exports.deleteCommentmedia = (req, res, next) => {
 //-----modifier un commentaire-----
 exports.modifyCommentMedia = (req, res, next) => {
   CommentMedia.findOne({ where: { id: req.params.id } })
-    .then((commentMedia) => {
+    .then(() => {
       CommentMedia.update(
-        {
-          title: req.body.title,
-          message: req.body.message,
-        },
+        { commentMedia: req.body.commentMedia },
         { where: { id: req.params.id } }
       )
         .then(() => {
-          res.status(201).json({ message: " A jour" });
+          res.status(201).json({ message: " Commentaire modifié" });
         })
         .catch((error) => {
           res.status(404).json({ error });
