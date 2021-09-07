@@ -1,12 +1,13 @@
 const Media = require("../models/mediapost-model");
 const media = require("../routes/mediapost-route");
+const fs = require("fs");
 
 // création d'un post media
 exports.createMedia = (req, res, next) => {
+  console.log("toto");
   Media.create({
     user_id: req.body.user_id,
-    media:
-      req.protocol + "://" + req.get("host") + "/images/" + req.file.filename,
+    media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   })
     .then((media) => res.status(201).json(media))
     .catch((error) => res.status(400).json({ error }));
@@ -16,12 +17,17 @@ exports.createMedia = (req, res, next) => {
 exports.deleteMedia = (req, res, next) => {
   Media.findOne({ where: { id: req.params.id } })
     .then((media) => {
+      console.log(media);
       const filename = media.media.split("/images/")[1];
+      console.log(filename);
       fs.unlink("images/" + filename, () => {
-        Media.destroy({ where: { id: req.params.id } })
-          .then(() =>
-            res.status(200).json({ message: " le post a été supprimé!" })
-          )
+        console.log("tata");
+        media
+          .destroy()
+          .then(() => {
+            console.log("tutu");
+            res.status(204).json();
+          })
           .catch((error) => res.status(400).json({ error }));
       });
     })

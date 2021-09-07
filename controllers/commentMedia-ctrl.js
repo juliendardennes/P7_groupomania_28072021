@@ -5,7 +5,7 @@ const commentMedia = require("../routes/commentMedia-route");
 exports.createCommentMedia = (req, res, next) => {
   CommentMedia.create({
     user_id: req.body.user_id,
-    post_id: req.body.post_id,
+    mediapost_id: req.body.post_id,
     content: req.body.content,
   })
     .then((commentMedia) => res.status(201).json(commentMedia))

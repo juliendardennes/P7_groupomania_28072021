@@ -33,7 +33,7 @@ const commentMedia = sequelize.define("commentMedia", {
     type: Sequelize.UUID,
     allowNull: true,
   },
-  post_id: {
+  mediapost_id: {
     type: Sequelize.UUID,
     allowNull: true,
   },

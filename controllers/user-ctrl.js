@@ -37,7 +37,6 @@ exports.signup = (req, res, next) => {
     where: { email: req.body.email },
   }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
     .then((user) => {
-      console.log(user);
       if (!user) {
         bcrypt
           .hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonction async//

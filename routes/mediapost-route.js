@@ -15,7 +15,7 @@ const mediaControl = require("../controllers/mediaPost-ctrl");
 //---Route pour créer un post
 router.post("/", auth, multer, mediaControl.createMedia);
 //---Route pour supprimer un post ---
-router.delete("/:id", auth, multer, mediaControl.deleteMedia);
+router.delete("/:id", auth, mediaControl.deleteMedia);
 //Route pour modifier un post
 router.put("/:id", auth, multer, mediaControl.modifyMedia);
 // route pour récuperer un post media

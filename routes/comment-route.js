@@ -11,7 +11,7 @@ const auth = require("../middleware/auth");
 const commentControl = require("../controllers/comment-ctrl");
 
 //Route pour créer un commentaire
-router.post("", auth, commentControl.createComment);
+router.post("/", auth, commentControl.createComment);
 //Route pour modifier un commentaire
 router.put("/:id", auth, commentControl.modifyComment);
 //Route pour effacer un commentaire

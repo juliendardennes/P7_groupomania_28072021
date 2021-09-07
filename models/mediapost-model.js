@@ -31,7 +31,7 @@ const Media = sequelize.define("media", {
   },
   user_id: {
     type: Sequelize.UUID,
-    allowNull: true,
+    allowNull: false,
   },
 });
 
