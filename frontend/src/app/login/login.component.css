@@ -1,0 +1,10 @@
+form {
+  margin: 2em;
+}
+button {
+  margin: 2em;
+  background-color: #fd2d01;
+  color: white;
+  border: 1px solid #fd2d01;
+  font-size: 1.2em;
+}
