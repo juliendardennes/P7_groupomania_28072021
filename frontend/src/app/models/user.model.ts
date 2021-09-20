@@ -1,8 +1,11 @@
-export class User {
-    constructor(
-      public firstName: string,
-      public lastName: string,
-      public email: string,
-      public password: string,
-    ) {}
+export class User{
+
+  constructor(
+      public firstname: String,
+      public lastname: String,
+      public password: String,
+      public email: String,
+  ){
+
   }
+}
