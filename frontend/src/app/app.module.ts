@@ -1,23 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { SignupComponent } from './components/auth/signup/signup.component';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/auth/login/login.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http'
-import { UserService } from './services/user.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavComponent } from './components/home/nav/nav.component';
-import { HomeComponent } from './components/home/home.component';
+import { Routes, RouterModule} from '@angular/router';
 
-const appRoutes: Routes = [
-  { path: 'signup', component: SignupComponent },
-  { path: 'login', component: LoginComponent},
-  { path: 'home', component: HomeComponent }
-];
+import { AppComponent } from './app.component';
+import { UsersService } from './service/users.service';
+import { HttpClientModule } from '@angular/common/http';
+
+
+import { HeaderComponent } from './composants/header/header.component';
+import { SignupComponent } from './composants/signup/signup.component';
+import { LoginComponent } from './composants/login/login.component';
+import { FooterComponent } from './composants/footer/footer.component';
+import { HomeComponent } from './composants/home/home.component';
+
+
+export const ROUTES: Routes = [
+  { path: 'signup', component: SignupComponent},
+  { path: 'login', component: LoginComponent}, 
+  { path: '', component: HomeComponent}
+]
+
 
 @NgModule({
   declarations: [
@@ -25,22 +28,16 @@ const appRoutes: Routes = [
     HeaderComponent,
     SignupComponent,
     LoginComponent,
-    NavComponent,
+    FooterComponent,
     HomeComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(ROUTES),
     AppRoutingModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes)
   ],
-  providers: [
-    UserService,
-    HttpClientModule,
-    HttpClient
-  ],
+  providers: [ UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
