@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { UsersService } from './service/users.service';
+import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -13,6 +13,8 @@ import { SignupComponent } from './composants/signup/signup.component';
 import { LoginComponent } from './composants/login/login.component';
 import { FooterComponent } from './composants/footer/footer.component';
 import { HomeComponent } from './composants/home/home.component';
+import { UserService } from './service/user.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 export const ROUTES: Routes = [
@@ -34,10 +36,12 @@ export const ROUTES: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
     AppRoutingModule,
   ],
-  providers: [ UsersService],
+  providers: [ LoginService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

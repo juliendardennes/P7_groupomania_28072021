@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
+import { User } from '../models/User.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class UsersService {
+export class LoginService {
 
     constructor(
         private httpClient: HttpClient,
@@ -12,7 +12,6 @@ export class UsersService {
     ) {} 
 
     login() {
-        alert("tete")
         var data = {
             "email":  "toto@toto.com",
             "password": "toto"
