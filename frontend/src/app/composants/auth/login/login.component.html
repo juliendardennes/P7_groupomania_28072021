@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<form class="auth" > 
+<form class="auth"> 
   <h2>Se connecter</h2>
   <div class="input">
     <label for="email"></label>
@@ -10,7 +10,9 @@
     <label for="password"></label>
     <input type="password" placeholder="Mot de passe" class="password" required>
   </div>
-  <button class="btn-login" (click)="submit()" >Se connecter</button>
+  <button class="btn-login" (click)="onLogin()" >Se connecter</button>
+  <p >Si vous n'avez pas<br>encore de compte<br>cliquez <a routerLink="/signup">ici</a></p>  
+
 </form>
 
 <app-footer></app-footer>

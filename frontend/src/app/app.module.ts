@@ -9,18 +9,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { HeaderComponent } from './composants/header/header.component';
-import { SignupComponent } from './composants/signup/signup.component';
-import { LoginComponent } from './composants/login/login.component';
+import { SignupComponent } from './composants/auth/signup/signup.component';
+import { LoginComponent } from './composants/auth/login/login.component';
 import { FooterComponent } from './composants/footer/footer.component';
 import { HomeComponent } from './composants/home/home.component';
 import { UserService } from './service/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostComponent } from './composants/post/post.component';
 
 
 export const ROUTES: Routes = [
   { path: 'signup', component: SignupComponent},
-  { path: 'login', component: LoginComponent}, 
-  { path: '', component: HomeComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'post', component: PostComponent},
+  { path: '', component: LoginComponent}
 ]
 
 
@@ -31,7 +33,8 @@ export const ROUTES: Routes = [
     SignupComponent,
     LoginComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
