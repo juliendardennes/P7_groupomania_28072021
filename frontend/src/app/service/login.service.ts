@@ -11,6 +11,8 @@ export class LoginService {
         private router: Router
     ) {} 
 
+        
+
     login() {
         var data = {
             "email":  "toto@toto.com",
@@ -24,6 +26,7 @@ export class LoginService {
         })
         .subscribe(
             (response) => {
+                localStorage.setItem( "token", JSON.stringify(response) );
                 console.log(response)
             },
             (error) => {
