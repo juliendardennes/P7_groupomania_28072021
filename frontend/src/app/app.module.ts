@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginService } from './service/login.service';
+import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -13,7 +13,6 @@ import { SignupComponent } from './composants/auth/signup/signup.component';
 import { LoginComponent } from './composants/auth/login/login.component';
 import { FooterComponent } from './composants/footer/footer.component';
 import { HomeComponent } from './composants/home/home.component';
-import { UserService } from './service/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostComponent } from './composants/post/post.component';
 
@@ -44,7 +43,7 @@ export const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     AppRoutingModule,
   ],
-  providers: [ LoginService, UserService],
+  providers: [ AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

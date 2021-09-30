@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/service/user.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User.model';
 
@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
+              private authService: AuthService,
               private router: Router) { }
  
   ngOnInit() {
@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
       formValue['password']
       
     );
-    this.userService.saveUsersToServer(newUser);
+    this.authService.saveUsersToServer(newUser);
     this.router.navigate(['/login']);
   }
   
