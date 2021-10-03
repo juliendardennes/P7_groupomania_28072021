@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 
+import { Observable, observable } from "rxjs";
+
 
 @Injectable()
 export class AuthService {
@@ -16,35 +18,42 @@ export class AuthService {
         .post('http://localhost:3000/api/auth/signup', user)
         .subscribe(
             (response) => {
-                console.log('enregistrement terminé !');
+                console.log('inscription terminé !');
             },
             (error) => {
-                console.log('erreur de sauvegarde');
+                console.log("erreur à l'inscription !");
             }
         )
     }
                 // -----se connecter-----
-    login() {
-        var data = {
-            "email":  "toto@toto.com",
-            "password": "toto"
-        };
-        
-        var headers = new HttpHeaders({
-            "Content-Type": "application/json"
-        })
-        this.httpClient.post('http://localhost:3000/api/auth/login', data, {
-            headers: headers
-        })
-        .subscribe(
-            (response) => {
-                localStorage.setItem( "token", JSON.stringify(response) );
-            },
-            (error) => {
-                console.log("error")
-            }
-        );
+               
+    login(data):Observable<any>{
+        // var headers = new HttpHeaders({"Content-Type": "application/json" })
+        return this.httpClient.post('http://localhost:3000/api/auth/login',data)
     }
-        
 
+  
+
+    // login() {
+    //     var data = {
+    //         "email":  "toto@toto.com",
+    //         "password": "toto"
+    //     };
+    //     var headers = new HttpHeaders({
+    //         "Content-Type": "application/json"
+    //     })
+    //     this.httpClient.post('http://localhost:3000/api/auth/login', data, { headers: headers })
+    //     .subscribe(
+    //         (response) => {
+    //             console.log(response)
+    //             localStorage.setItem( "token", JSON.stringify(response) );
+
+    //         },
+    //         (error) => {
+    //             console.log("error")
+    //         }
+    //     );
+    // }
+    
+    
 }
