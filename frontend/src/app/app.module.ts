@@ -15,13 +15,10 @@ import { FooterComponent } from './composants/footer/footer.component';
 import { HomeComponent } from './composants/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostComponent } from './composants/post/post.component';
-import { ProfilComponent } from './composants/profil/profil.component';
-
 
 export const ROUTES: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'profil', component: ProfilComponent},
   { path: 'home', component: HomeComponent},
   { path: 'post', component: PostComponent},
   { path: '', component: LoginComponent}]
@@ -36,7 +33,6 @@ export const ROUTES: Routes = [
     FooterComponent,
     HomeComponent,
     PostComponent,
-    ProfilComponent
   ],
   imports: [
     BrowserModule,

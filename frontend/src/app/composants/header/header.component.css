@@ -1,6 +1,9 @@
 .logo {
   text-align: right;
 }
+.menu {
+  text-align: center;
+}
 .nav {
   cursor: pointer;
   margin-left: 3em;
@@ -9,7 +12,7 @@
   padding: 0.5em 1em;
   font-size: 1.2em;
   font-weight: bold;
-  background-color: #fd2900;
+  background: linear-gradient(rgb(255, 153, 0), #fd2900);
   color: white;
 }
 .nav:hover {

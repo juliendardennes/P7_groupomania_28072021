@@ -1,1 +1,14 @@
-<p>POST</p>
+<app-header></app-header>
+
+<form class="form">
+    <input class="title" type="text" placeholder="Titre">
+    <p> 
+        <textarea  name="descripiton" placeholder="Votre texte" ></textarea>
+    </p>
+    <div class="addPicture">
+        <input class="picture" type="file" accept="image/*">
+    </div>
+    <button (click)="onSubmit()">Publier</button>
+</form>
+
+<app-footer></app-footer>
