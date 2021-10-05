@@ -9,8 +9,14 @@ import { Observable, observable } from "rxjs";
 @Injectable()
 export class AuthService {
 
-  constructor(private httpClient: HttpClient,
+    private userId: string;
+
+    constructor(private httpClient: HttpClient,
                 private router: Router) {}
+
+    getUserId() {
+        return this.userId;
+    }
 
                 // -----s'inscrire-----
     saveUsersToServer(user: User) {

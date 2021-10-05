@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.initForm();
   }
+
+  // formulaire de connexion
   initForm() {
     this.formGroup = new FormGroup({
       email: new FormControl('',[Validators.required]),
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
     })
   }
   
+  // formulaire pour s'identifier et stocker token dans localstorage
   loginProcess() {
     if(this.formGroup.valid) {
       this.AuthService.login(this.formGroup.value).subscribe(result=> {
@@ -35,7 +38,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home']);
 
         }else {
-          console.log("identifiant inconnu")
+          alert("identifiant inconnu")
         }
       })
     }

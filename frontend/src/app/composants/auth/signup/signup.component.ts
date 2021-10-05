@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
     this.initForm();
   }
 
+  // formulaire d'inscription
   initForm() {
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,6 +32,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  // bouton pour s'enregistrer dans la base de données
   onSubmitForm() {
     const formValue = this.userForm.value;
     const newUser = new User (

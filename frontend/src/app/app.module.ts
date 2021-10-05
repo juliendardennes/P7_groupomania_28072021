@@ -14,13 +14,15 @@ import { LoginComponent } from './composants/auth/login/login.component';
 import { FooterComponent } from './composants/footer/footer.component';
 import { HomeComponent } from './composants/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PostComponent } from './composants/post/post.component';
+import { PostFormComponent } from './composants/post/post.component';
+import { PostsService } from './service/post.service';
+import { PostListComponent } from './composants/post-list/post-list.component';
 
 export const ROUTES: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'home', component: HomeComponent},
-  { path: 'post', component: PostComponent},
+  { path: 'post', component: PostFormComponent},
   { path: '', component: LoginComponent}]
 
 
@@ -32,7 +34,8 @@ export const ROUTES: Routes = [
     LoginComponent,
     FooterComponent,
     HomeComponent,
-    PostComponent,
+    PostFormComponent,
+    PostListComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ export const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     AppRoutingModule,
   ],
-  providers: [ AuthService],
+  providers: [ AuthService, PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
