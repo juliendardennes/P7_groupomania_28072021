@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-signup',
@@ -12,38 +11,38 @@ import { User } from 'src/app/models/User.model';
 
 export class SignupComponent implements OnInit {
 
-  userForm: FormGroup;
+  signUpForm : FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private router: Router) { }
- 
+              private router: Router) {}
+
   ngOnInit() {
     this.initForm();
   }
 
-  // formulaire d'inscription
   initForm() {
-    this.userForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required]
-    });
+    this.signUpForm = this.formBuilder.group({
+      email:['',[Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
+    })
   }
-
-  // bouton pour s'enregistrer dans la base de données
-  onSubmitForm() {
-    const formValue = this.userForm.value;
-    const newUser = new User (
-      formValue['firstName'],
-      formValue['lastName'],
-      formValue['email'],
-      formValue['password']
-      
+  onSubmit() {
+    const email = this.signUpForm.get('email').value;
+    const password = this.signUpForm.get('password').value;
+    const firstName = this.signUpForm.get('firstName').value;
+    const lastName = this.signUpForm.get('lastName').value;
+    this.authService.createNewUser(email, password, firstName, lastName).then(
+      ()=> {
+        console.log('inscription validé !')
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        alert('Il se peut que vous ayez déjà un compte, ou il y a erreur de saisie !')
+      }
     );
-    this.authService.saveUsersToServer(newUser);
-    this.router.navigate(['/login']);
   }
   
 }

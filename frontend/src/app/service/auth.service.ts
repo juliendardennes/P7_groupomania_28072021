@@ -1,65 +1,67 @@
-import { User } from "../models/User.model";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 
-import { Observable, observable } from "rxjs";
-
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-
+    
+    isAuth$ = new BehaviorSubject<boolean>(false);
     private userId: string;
 
     constructor(private httpClient: HttpClient,
                 private router: Router) {}
 
-    getUserId() {
-        return this.userId;
-    }
 
                 // -----s'inscrire-----
-    saveUsersToServer(user: User) {
-        this.httpClient
-        .post('http://localhost:3000/api/auth/signup', user)
-        .subscribe(
-            (response) => {
-                console.log('inscription terminé !');
+    createNewUser(email: string, password: string, firstName: string, lastName: string) {
+        return new Promise((resolve, reject) => {
+            this.httpClient.post('http://localhost:3000/api/auth/signup', {
+                email: email, 
+                password: password,
+                firstName: firstName,
+                lastName: lastName
+            }).subscribe(
+            (response: { message: string }) => {
+                resolve(response);
             },
             (error) => {
-                console.log("erreur à l'inscription !");
+                reject(error);
+            }
+            );
+        });
+    }
+
+    getUserId() {
+        return this.userId;
+      }
+
+                // -----se connecter-----
+
+    loginUser(email: string, password: string) {
+        return new Promise(
+            (resolve, reject) => {
+                this.httpClient.post('http://localhost:3000/api/auth/login', {
+                    email: email, 
+                    password: password
+                }).subscribe(
+                    (response: { message: string }) => {
+                        resolve(response);
+                        localStorage.setItem( "token", JSON.stringify(response) );
+                    },
+                    (error) => {
+                        reject(error);
+                    }
+                )
             }
         )
     }
-                // -----se connecter-----
                
-    login(data):Observable<any>{
-        // var headers = new HttpHeaders({"Content-Type": "application/json" })
-        return this.httpClient.post('http://localhost:3000/api/auth/login',data)
-    }
+    // // bouton de déconnexion - suppression token du localstorage- retour formulaire de connexion
+    // logout() {
+    //     localStorage.clear();
+    //     this.router.navigate(['login']);
+    //   }
 
-  
-
-    // login() {
-    //     var data = {
-    //         "email":  "toto@toto.com",
-    //         "password": "toto"
-    //     };
-    //     var headers = new HttpHeaders({
-    //         "Content-Type": "application/json"
-    //     })
-    //     this.httpClient.post('http://localhost:3000/api/auth/login', data, { headers: headers })
-    //     .subscribe(
-    //         (response) => {
-    //             console.log(response)
-    //             localStorage.setItem( "token", JSON.stringify(response) );
-
-    //         },
-    //         (error) => {
-    //             console.log("error")
-    //         }
-    //     );
-    // }
-    
-    
 }

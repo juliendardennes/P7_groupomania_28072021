@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,21 +10,18 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  isAuth: boolean;
+  authSubscription: Subscription;
+
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
-  // bouton de déconnexion - suppression token du localstorage- retour formulaire de connexion
-  onSubmit() {
-    if( confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-      alert("Déconnexion ! Retour à l'accueil")
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-    } else {
-      alert ('Déconnexion annulé');
-    }
-    
+  signOut() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
 }

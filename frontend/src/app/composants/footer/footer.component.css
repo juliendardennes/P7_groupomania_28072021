@@ -1,8 +1,7 @@
 .footer {
-  background: linear-gradient(rgb(255, 153, 0), #fd2900);
+  background-color: #fd2900;
   text-align: center;
   margin-top: 4em;
-  border-radius: 10px;
 }
 a {
   display: inline;

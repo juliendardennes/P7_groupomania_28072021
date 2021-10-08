@@ -12,18 +12,19 @@ import { HeaderComponent } from './composants/header/header.component';
 import { SignupComponent } from './composants/auth/signup/signup.component';
 import { LoginComponent } from './composants/auth/login/login.component';
 import { FooterComponent } from './composants/footer/footer.component';
-import { HomeComponent } from './composants/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PostFormComponent } from './composants/post/post.component';
-import { PostsService } from './service/post.service';
-import { PostListComponent } from './composants/post-list/post-list.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { SinglePostComponent } from './single-post/single-post.component';
+import { PostFormComponent } from './post-form/post-form.component';
 
-export const ROUTES: Routes = [
+const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'home', component: HomeComponent},
-  { path: 'post', component: PostFormComponent},
-  { path: '', component: LoginComponent}]
+  { path: '', component: LoginComponent},
+  { path: 'post-list', component: PostListComponent},
+  { path: 'post-form', component: PostFormComponent},
+  { path: 'single-post', component: SinglePostComponent}
+]
 
 
 @NgModule({
@@ -33,19 +34,19 @@ export const ROUTES: Routes = [
     SignupComponent,
     LoginComponent,
     FooterComponent,
-    HomeComponent,
-    PostFormComponent,
     PostListComponent,
+    SinglePostComponent,
+    PostFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(appRoutes),
     AppRoutingModule,
   ],
-  providers: [ AuthService, PostsService],
+  providers: [ AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

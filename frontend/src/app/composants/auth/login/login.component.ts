@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,42 +11,37 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
 
-  formGroup: FormGroup;
+  loginForm : FormGroup;
 
-  constructor(private AuthService: AuthService,
-              private router : Router) { }
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.initForm();
   }
 
-  // formulaire de connexion
   initForm() {
-    this.formGroup = new FormGroup({
-      email: new FormControl('',[Validators.required]),
-      password: new FormControl('',[Validators.required])
+    this.loginForm = this.formBuilder.group({
+      email:['',[Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     })
   }
-  
-  // formulaire pour s'identifier et stocker token dans localstorage
-  loginProcess() {
-    if(this.formGroup.valid) {
-      this.AuthService.login(this.formGroup.value).subscribe(result=> {
-        if (!result.success) {
-          console.log("connexion autorisé");
-          localStorage.setItem( "token", JSON.stringify(result) );
-          this.router.navigate(['home']);
-
-        }else {
-          alert("identifiant inconnu")
-        }
-      })
-    }
+  onSubmit() {
+    const email = this.loginForm.get('email').value;
+    const password = this.loginForm.get('password').value;
+    this.authService.loginUser(email, password).then(
+      ()=> {
+        console.log('connexion validé !')
+        this.router.navigate(['/post-list']);
+      },
+      (error) => {
+        alert('données non valides. Réessayer !')
+      }
+    );
   }
 
 
-  // onLogin() {
-  //   this.AuthService.login();
-  // };
+
 
 }

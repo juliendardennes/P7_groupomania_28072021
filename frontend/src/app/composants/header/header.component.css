@@ -1,20 +1,11 @@
-.logo {
-  text-align: right;
-}
 .menu {
-  text-align: center;
+  padding: 0.3em;
+  background-color: #fd2900;
 }
-.nav {
-  cursor: pointer;
-  margin-left: 3em;
-  border-radius: 10px;
-  border: 1px solid #fd2900;
-  padding: 0.5em 1em;
-  font-size: 1.2em;
-  font-weight: bold;
-  background: linear-gradient(rgb(255, 153, 0), #fd2900);
+a {
+  display: inline;
   color: white;
-}
-.nav:hover {
-  box-shadow: 0 0 15px #fd2900;
+  text-decoration: none;
+  font-size: 1.5em;
+  margin-right: 2em;
 }

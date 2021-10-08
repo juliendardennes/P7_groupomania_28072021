@@ -1,0 +1,12 @@
+<h3>Publier un nouveau post</h3>
+<form [formGroup]="postForm" >
+  <div class="input">
+    <label for="title"></label>
+    <input type="text" placeholder="Titre" class="title"  formControlName="title"  required>
+  </div>
+  <div class="input">
+    <label for="content"></label>
+    <input type="text" placeholder="Ecrivez-ici" class="content" formControlName="content"  required>
+  </div>
+  <button class="btn-post" [disabled]="postForm.invalid" (click)="onSubmit">Publier</button>
+</form>

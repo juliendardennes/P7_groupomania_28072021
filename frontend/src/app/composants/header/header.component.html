@@ -1,14 +1,14 @@
+<div class="menu">
+  <a routerLink="/signup" >S'identifier</a>
+  <a routerLink="/login" >Se connecter</a>
+  <a routerLink="/post-form" >Publier</a>
+  <a (click)="signOut()" >Déconnexion</a>
+  <!-- <a routerLink="/signUp" *ngIf="!isAuth">S'identifier</a>
+  <a routerLink="/login" *ngIf="!isAuth">Se connecter</a>
+  <a routerLink="/post-form" *ngIf="!isAuth">Publier</a>
+  <a (click)="signOut()" *ngIf="!isAuth">Déconnexion</a> -->
+</div>
 <div class="logo">
   <img alt="logo groupomania" src="assets\images\icon-left-font.png">
 </div>
-<div class="menu">
-  <button class="nav" routerLink="/home">Accueil</button>
-  <button class="nav" routerLink="/signup">S'identifier</button>
-  <button class="nav" routerLink="/login">Se connecter</button>
-  <button class="nav" routerLink="/post">Publier</button>
-  <button class="nav" (click)="onSubmit()">Déconnexion</button>
-
-
-</div>
-
 
