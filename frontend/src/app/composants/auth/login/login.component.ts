@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm : FormGroup;
+  errorMessage: string;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/post-list']);
       },
       (error) => {
+        // this.errorMessage = error;
         alert('données non valides. Réessayer !')
       }
     );

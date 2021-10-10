@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   signUpForm : FormGroup;
+  // errorMessage: string;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -37,9 +38,10 @@ export class SignupComponent implements OnInit {
     this.authService.createNewUser(email, password, firstName, lastName).then(
       ()=> {
         console.log('inscription validé !')
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
       },
       (error) => {
+        // this.errorMessage = error;
         alert('Il se peut que vous ayez déjà un compte, ou il y a erreur de saisie !')
       }
     );

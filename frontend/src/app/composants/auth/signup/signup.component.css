@@ -23,7 +23,6 @@ h2 {
   font-size: 1em;
   font-weight: bold;
   border-radius: 10px;
-  cursor: pointer;
 }
 .btn-signup:hover {
   box-shadow: 0 0 15px #fd2900;

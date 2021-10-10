@@ -9,6 +9,7 @@ export class AuthService {
     
     isAuth$ = new BehaviorSubject<boolean>(false);
     private userId: string;
+    private authToken: string;
 
     constructor(private httpClient: HttpClient,
                 private router: Router) {}
@@ -33,35 +34,32 @@ export class AuthService {
         });
     }
 
-    getUserId() {
-        return this.userId;
-      }
+    
 
                 // -----se connecter-----
 
-    loginUser(email: string, password: string) {
-        return new Promise(
-            (resolve, reject) => {
-                this.httpClient.post('http://localhost:3000/api/auth/login', {
-                    email: email, 
-                    password: password
-                }).subscribe(
-                    (response: { message: string }) => {
-                        resolve(response);
-                        localStorage.setItem( "token", JSON.stringify(response) );
-                    },
-                    (error) => {
-                        reject(error);
-                    }
-                )
+    loginUser(email: string, password) {
+        return new Promise((resolve, reject) => {
+          this.httpClient.post('http://localhost:3000/api/auth/login', {email: email, password: password}).subscribe(
+            (response: {userId: string, token: string}) => {
+              this.userId = response.userId;
+              this.authToken = response.token;
+              this.isAuth$.next(true);
+              resolve(response);
+              localStorage.setItem( "user", JSON.stringify(response) );
+            },
+            (error) => {
+              reject(error);
             }
-        )
+          );
+        });
+      }
+
+    logout(): void {
+        console.log('vidé!')
+        localStorage.clear();
+        this.isAuth$.next(false);
+        this.router.navigate(['login']);
     }
-               
-    // // bouton de déconnexion - suppression token du localstorage- retour formulaire de connexion
-    // logout() {
-    //     localStorage.clear();
-    //     this.router.navigate(['login']);
-    //   }
 
 }

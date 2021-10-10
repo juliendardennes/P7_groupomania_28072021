@@ -1,5 +1,4 @@
 export class Post {
-    _id: string;
-    title: string;
-    content: string
+    constructor(public title: string, 
+                public content: string) {}
 }

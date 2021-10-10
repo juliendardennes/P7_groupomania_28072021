@@ -6,6 +6,7 @@ import { Routes, RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PostService } from './service/post.service';
 
 
 import { HeaderComponent } from './composants/header/header.component';
@@ -13,17 +14,16 @@ import { SignupComponent } from './composants/auth/signup/signup.component';
 import { LoginComponent } from './composants/auth/login/login.component';
 import { FooterComponent } from './composants/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PostListComponent } from './post-list/post-list.component';
-import { SinglePostComponent } from './single-post/single-post.component';
-import { PostFormComponent } from './post-form/post-form.component';
+import { PostFormComponent } from './composants/post-form/post-form.component';
+import { PostListComponent } from './composants/post-list/post-list.component';
+
 
 const appRoutes: Routes = [
+  { path: '', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
-  { path: '', component: LoginComponent},
-  { path: 'post-list', component: PostListComponent},
   { path: 'post-form', component: PostFormComponent},
-  { path: 'single-post', component: SinglePostComponent}
+  { path: 'post-list', component: PostListComponent}
 ]
 
 
@@ -34,9 +34,8 @@ const appRoutes: Routes = [
     SignupComponent,
     LoginComponent,
     FooterComponent,
-    PostListComponent,
-    SinglePostComponent,
-    PostFormComponent
+    PostFormComponent,
+    PostListComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +45,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AppRoutingModule,
   ],
-  providers: [ AuthService],
+  providers: [ AuthService, PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,15 +13,20 @@ export class HeaderComponent implements OnInit {
   isAuth: boolean;
   authSubscription: Subscription;
 
-  constructor(private authService: AuthService,
+  constructor(private auth: AuthService,
               private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    console.log('tutu');
+    this.authSubscription = this.auth.isAuth$.subscribe(
+      (auth) => {
+        this.isAuth = auth;
+      }
+    );
   }
 
-  signOut() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  signOut(): void {
+    this.auth.logout();
   }
 
 }
