@@ -6,18 +6,18 @@ form {
   margin-left: auto;
   margin-right: auto;
 }
+h3 {
+  margin-left: 1em;
+  color: grey;
+}
 .input {
   margin: 1.2em;
   width: 20em;
   text-align: center;
 }
-h2 {
-  margin: 1em;
-}
 .btn-signup {
   margin: 1em;
   padding: 0.6em;
-  border: 1px solid #fd2900;
   background-color: #fd2900;
   color: white;
   font-size: 1em;
@@ -25,5 +25,5 @@ h2 {
   border-radius: 10px;
 }
 .btn-signup:hover {
-  box-shadow: 0 0 15px #fd2900;
+  box-shadow: 0 0 20px #fd2900;
 }

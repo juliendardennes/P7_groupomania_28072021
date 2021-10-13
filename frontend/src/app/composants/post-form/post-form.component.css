@@ -1,6 +1,3 @@
-h3 {
-  text-align: center;
-}
 form {
   border: 3px solid #fd2900;
   border-radius: 10px;
@@ -8,6 +5,10 @@ form {
   margin-top: 1em;
   margin-left: auto;
   margin-right: auto;
+}
+h3 {
+  margin-left: 1em;
+  color: grey;
 }
 .title {
   margin: 1.2em;

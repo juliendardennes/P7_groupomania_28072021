@@ -67,6 +67,7 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
+      console.log(user);
       if (!user) {
         return res.status(401).json({ error: " Utilisateur inconnu !" });
       }
@@ -78,10 +79,11 @@ exports.login = (req, res, next) => {
               .status(401)
               .json({ error: " le mot de passe est incorrect !" });
           }
+
           // si comparaison ok, on renvoit un objet JSON contenant
           res.status(200).json({
             // l'userId
-            userId: user._id,
+            user_id: user.id,
             // un token - fonction sign de jsonwebtoken
             token: jwt.sign(
               // 1er argument: données à encoder

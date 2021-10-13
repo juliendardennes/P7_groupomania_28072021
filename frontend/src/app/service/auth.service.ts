@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
     
     isAuth$ = new BehaviorSubject<boolean>(false);
@@ -34,8 +36,6 @@ export class AuthService {
         });
     }
 
-    
-
                 // -----se connecter-----
 
     loginUser(email: string, password) {
@@ -55,8 +55,15 @@ export class AuthService {
         });
       }
 
+      getUserId() {
+        return this.userId;
+      }
+      getToken() {
+        return this.authToken;
+      }
+
     logout(): void {
-        console.log('vidé!')
+        console.log('Déconnecté!')
         localStorage.clear();
         this.isAuth$.next(false);
         this.router.navigate(['login']);

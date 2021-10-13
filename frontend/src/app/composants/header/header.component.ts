@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    console.log('tutu');
     this.authSubscription = this.auth.isAuth$.subscribe(
       (auth) => {
         this.isAuth = auth;

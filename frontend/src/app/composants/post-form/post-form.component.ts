@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PostService } from 'src/app/service/post.service';
 
 @Component({
@@ -12,28 +13,78 @@ import { PostService } from 'src/app/service/post.service';
 export class PostFormComponent implements OnInit {
 
   postForm: FormGroup;
+  mode: string;
+  loading: boolean;
+  post: Post;
+  errorMsg: string;
+  imagePreview: string;
 
   constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
               private router: Router,
-              private postService: PostService) { }
+              private posts: PostService,
+              private auth: AuthService) { }
 
   ngOnInit() {
-    this.initForm();
+    this.loading = true;
+    this.route.params.subscribe(
+      (params) => {
+        if (!params.id) {
+          this.mode = 'new';
+          this.initEmptyForm();
+          this.loading = false;
+        } else {
+          this.mode = 'edit';
+          this.posts.getPostById(params.id).then(
+            (post: Post) => {
+              this.post = post;
+              this.initModifyForm(post);
+              this.loading = false;
+            }
+          ).catch(
+            (error) => {
+              this.errorMsg = JSON.stringify(error);
+            }
+          );
+        }
+      }
+    );
   }
 
-  initForm() {
+  initEmptyForm() {
     this.postForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      content: ['', Validators.required]
+      title: [null, Validators.required],
+      content: [null, Validators.required],
     });
   }
 
-  onSavePost() {
-    const title = this.postForm.get('title').value;
-    const content = this.postForm.get('content').value;
-    // const newPost = new Post(title, content);
-    // this.postService.createNewPost(newPost);
-    this.router.navigate(['post-list']);
+  initModifyForm(post: Post) {
+    this.postForm = this.formBuilder.group({
+      title: [this.post.title, Validators.required],
+      content: [this.post.content, Validators.required],
+    });
   }
 
+  onSubmit() {
+    this.loading = true;
+    const newPost = new Post();
+    newPost.title = this.postForm.get('title').value;
+    newPost.content = this.postForm.get('content').value;
+    newPost.userId = this.auth.getUserId();
+    if (this.mode === 'new') {
+      this.posts.createPost(newPost).then(
+        (response: { message: string }) => {
+          console.log(response.message);
+          this.loading = false;
+          this.router.navigate(['/post-list']);
+        }
+      ).catch(
+        (error) => {
+          console.error(error);
+          this.loading = false;
+          this.errorMsg = error.message;
+        }
+      );
+    } 
+  }
 }

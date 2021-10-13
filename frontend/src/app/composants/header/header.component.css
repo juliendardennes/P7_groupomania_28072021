@@ -1,12 +1,24 @@
+.logo {
+  display: inline;
+}
 .menu {
-  background-color: #fd2900;
+  float: right;
+}
+.header {
+  background: linear-gradient(to bottom, #b9b9b9, #f2f2f2, white);
 }
 li {
   display: inline;
 }
 a {
   text-decoration: none;
-  color: white;
+  color: #fd2900;
   font-size: 1.5em;
   margin-right: 2em;
+}
+a:hover {
+  border-bottom: 3px solid #fd2900;
+}
+img {
+  width: 30%;
 }

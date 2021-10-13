@@ -1,4 +1,6 @@
 export class Post {
-    constructor(public title: string, 
-                public content: string) {}
+                _id: string;
+                title: string; 
+                content: string;
+                userId: string; 
 }

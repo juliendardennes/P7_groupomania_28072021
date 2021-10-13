@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(email, password).then(
       ()=> {
         console.log('connexion validé !')
-        this.router.navigate(['/post-list']);
+        this.router.navigate(['/post-form']);
       },
       (error) => {
         // this.errorMessage = error;
