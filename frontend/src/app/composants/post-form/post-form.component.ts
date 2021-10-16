@@ -70,12 +70,12 @@ export class PostFormComponent implements OnInit {
     const newPost = new Post();
     newPost.title = this.postForm.get('title').value;
     newPost.content = this.postForm.get('content').value;
-    newPost.userId = this.auth.getUserId();
+    newPost.userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
       this.posts.createPost(newPost).then(
         (response: { message: string }) => {
           this.loading = false;
-          this.router.navigate(['/post-list']);
+          this.router.navigate(['post-list']);
         }
       ).catch(
         (error) => {

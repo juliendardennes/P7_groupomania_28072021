@@ -17,12 +17,11 @@ export class PostService {
                 private auth: AuthService) {}
 
     createPost(post: Post) {
-      const userPost = localStorage.getItem('user_id');
         return new Promise((resolve, reject) => {
            this.http.post('http://localhost:3000/api/posts', {
               title: post.title,
               content: post.content,
-              userId: userPost
+              user_id: post.userId,
             }).subscribe(
             (response: { message: string }) => {
                 resolve(response);

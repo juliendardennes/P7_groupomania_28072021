@@ -16,13 +16,15 @@ import { LoginComponent } from './composants/auth/login/login.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostFormComponent } from './composants/post-form/post-form.component';
 import { AuthGuard } from './service/auth-guard.service';
+import { PostListComponent } from './composants/post-list/post-list.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'post-form', component: PostFormComponent}
+  { path: 'post-form', component: PostFormComponent},
+  { path: 'post-list', component: PostListComponent}
   
   // { path: 'post-form', canActivate: [AuthGuard], component: PostFormComponent},
   // { path: 'post-list', canActivate: [AuthGuard], component: PostListComponent}
@@ -35,7 +37,9 @@ const appRoutes: Routes = [
     HeaderComponent,
     SignupComponent,
     LoginComponent,
-    PostFormComponent
+    PostFormComponent,
+    PostListComponent,
+    PostListComponent
   ],
   imports: [
     BrowserModule,
