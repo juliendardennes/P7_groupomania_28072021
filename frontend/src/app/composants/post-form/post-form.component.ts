@@ -74,7 +74,6 @@ export class PostFormComponent implements OnInit {
     if (this.mode === 'new') {
       this.posts.createPost(newPost).then(
         (response: { message: string }) => {
-          console.log(response.message);
           this.loading = false;
           this.router.navigate(['/post-list']);
         }

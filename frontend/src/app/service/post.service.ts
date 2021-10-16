@@ -11,15 +11,18 @@ import { AuthService } from './auth.service';
 export class PostService {
 
     post$ = new Subject<Post[]>();
+    private userId: string;
 
     constructor(private http: HttpClient,
                 private auth: AuthService) {}
 
     createPost(post: Post) {
+      const userPost = localStorage.getItem('user_id');
         return new Promise((resolve, reject) => {
            this.http.post('http://localhost:3000/api/posts', {
               title: post.title,
-              content: post.content
+              content: post.content,
+              userId: userPost
             }).subscribe(
             (response: { message: string }) => {
                 resolve(response);
@@ -30,6 +33,7 @@ export class PostService {
             );
         });
     }
+
 
     getPosts() {
         this.http.get('http://localhost:3000/api/posts').subscribe(
