@@ -1,4 +1,3 @@
-
 <p class="list-title" *ngIf="!loading"></p>
 <div class="post-list" *ngIf="!loading">
   <div class="post-list-item" *ngFor="let post of posts">
@@ -7,7 +6,8 @@
     </div>
     <h4>{{ post.title | uppercase }}</h4>
     <p> {{ post.content }}</p>
-    <app-comment></app-comment>
+    <app-comment [postId]="post.id"></app-comment>
     <app-comment-list></app-comment-list>
+    <!-- <p>tous les commentaires</p> -->
   </div>
 </div>

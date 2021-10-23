@@ -28,8 +28,8 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'post-form', component: PostFormComponent},
   { path: 'post-list', component: PostListComponent},
-  { path: 'comment', component: CommentComponent},
-  { path: 'comment-list', component: CommentListComponent}  
+  { path: 'comment', component: CommentComponent}, 
+  { path: 'comment-list', component: CommentListComponent}
   // { path: 'post-form', canActivate: [AuthGuard], component: PostFormComponent},
   // { path: 'post-list', canActivate: [AuthGuard], component: PostListComponent}
 ]
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     PostListComponent,
     PostListComponent,
     CommentComponent,
-    CommentListComponent
+    CommentListComponent,
   ],
   imports: [
     BrowserModule,

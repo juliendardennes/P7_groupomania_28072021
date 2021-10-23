@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comment } from 'src/app/models/comment.model';
@@ -17,6 +17,7 @@ export class CommentComponent implements OnInit {
   loading: boolean;
   comment: Comment;
   errorMsg: string;
+  @Input()postId: string; 
 
 
   constructor(private formBuilder: FormBuilder,
@@ -67,6 +68,7 @@ export class CommentComponent implements OnInit {
     this.loading = true;
     const newComment = new Comment();
     newComment.content = this.commentForm.get('content').value;
+    newComment.postId = this.postId;
     newComment.userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
       this.comments.createComment(newComment).then(
