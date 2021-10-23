@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/service/post.service';
-import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
+import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,32 +11,19 @@ import { Router } from '@angular/router';
 })
 export class PostListComponent implements OnInit {
 
-  postSub: Subscription;
   posts: Post[];
-  loading: boolean;
-  errorMsg: string;
+  postsSubscription: Subscription;
 
-  constructor(private post: PostService,
-              private router: Router) { }
+  constructor(private postsService: PostService, 
+              private router: Router) {}
 
   ngOnInit() {
-    this.loading = true;
-    this.postSub = this.post.posts$.subscribe(
-      (posts) => {
+    this.postsSubscription = this.postsService.post$.subscribe(
+      (posts: Post[]) => {
         this.posts = posts;
-        this.loading = false;
-        this.errorMsg = null;
-      },
-      (error) => {
-        this.errorMsg = JSON.stringify(error);
-        this.loading = false;
       }
     );
-    this.post.getPosts();
-  }
-
-  onClickPost(id: string) {
-    this.router.navigate(['post', id]);
+    this.postsService.getPosts();
   }
 
 }

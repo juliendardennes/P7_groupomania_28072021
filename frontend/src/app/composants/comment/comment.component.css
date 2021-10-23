@@ -1,0 +1,9 @@
+.comment {
+  width: 70%;
+  color: black;
+}
+button {
+  background-color: #fd2900;
+  color: white;
+  cursor: pointer;
+}

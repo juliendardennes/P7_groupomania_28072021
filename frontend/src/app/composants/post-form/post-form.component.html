@@ -6,7 +6,7 @@
   </div>
   <div class="input">
     <label for="content"></label>
-    <input type="text" placeholder="Ecrivez-ici" class="content" formControlName="content"  required>
+    <input type="text" placeholder="Que voulez-vous dire ..." class="content" formControlName="content"  required>
   </div>
   <button class="btn-post"  (click)="onSubmit()" [disabled]="postForm.invalid">Publier</button>
 </form>

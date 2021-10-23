@@ -43,7 +43,7 @@ export class AuthService {
           this.httpClient.post('http://localhost:3000/api/auth/login', {email: email, password: password}).subscribe(
             (response: {userId: string, token: string}) => {
               this.userId = response.userId;
-              this.authToken = response.token;
+              
               this.isAuth$.next(true);
               resolve(response);
               localStorage.setItem( "user", JSON.stringify(response) );
@@ -59,7 +59,15 @@ export class AuthService {
         return this.userId;
       }
       getToken() {
-        return this.authToken;
+        let user = localStorage.getItem('user');
+        if (
+          user == null
+          
+        ) {
+          return null;
+        }
+        let data = JSON.parse(user)
+        return data.token;
       }
 
     logout(): void {

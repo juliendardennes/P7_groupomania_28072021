@@ -1,27 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Post } from '../models/post.model';
+import { Comment } from '../models/comment.model';
 import { AuthService } from './auth.service';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class PostService {
+export class CommentService {
 
-    post$ = new Subject<Post[]>();
+    comment$ = new Subject<Comment[]>();
     private userId: string;
+    private postId: string;
 
     constructor(private http: HttpClient,
                 private auth: AuthService) {}
 
-    createPost(post: Post) {
+    createComment(comment: Comment) {
         return new Promise((resolve, reject) => {
-           this.http.post('http://localhost:3000/api/posts', {
-              title: post.title,
-              content: post.content,
-              user_id: post.userId,
+           this.http.post('http://localhost:3000/api/comments', {
+              content: comment.content,
+              user_id: comment.userId,
+              post_id: comment.postId,
             }).subscribe(
             (response: { message: string }) => {
                 resolve(response);
@@ -34,23 +35,23 @@ export class PostService {
     }
 
 
-    getPosts() {
-        this.http.get('http://localhost:3000/api/posts').subscribe(
-          (posts: Post[]) => {
-            this.post$.next(posts);
+    getComments() {
+        this.http.get('http://localhost:3000/api/comments').subscribe(
+          (comments: Comment[]) => {
+            this.comment$.next(comments);
           },
           (error) => {
-            this.post$.next([]);
+            this.comment$.next([]);
             console.error(error);
           }
         );
     }
 
-    getPostById(id: string) {
+    getCommentById(id: string) {
         return new Promise((resolve, reject) => {
-          this.http.get('http://localhost:3000/api/posts/' + id).subscribe(
-            (post: Post) => {
-              resolve(post);
+          this.http.get('http://localhost:3000/api/comments/' + id).subscribe(
+            (comment: Comment) => {
+              resolve(comment);
             },
             (error) => {
               reject(error);

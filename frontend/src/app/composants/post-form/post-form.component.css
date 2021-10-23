@@ -12,16 +12,15 @@ h3 {
 }
 .title {
   margin: 1.2em;
-  width: 29em;
+  width: 90%;
 }
 .content {
   margin: 1.2em;
-  padding: 2em;
-  width: 29em;
+  padding: 1em;
+  width: 90%;
 }
 .btn-post {
   margin: 1em;
-  padding: 0.6em;
   border: 1px solid #fd2900;
   background-color: #fd2900;
   color: white;
@@ -29,4 +28,8 @@ h3 {
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+}
+.btn-post:hover {
+  color: #fd2900;
+  background-color: white;
 }

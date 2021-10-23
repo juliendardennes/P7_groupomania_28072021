@@ -17,12 +17,16 @@ export class HeaderComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.authSubscription = this.auth.isAuth$.subscribe(
-      (auth) => {
-        this.isAuth = auth;
+    
+        let token = this.auth.getToken();
+        if (token == null) {
+          this.isAuth = false;
+        } else {
+          this.isAuth = true;
+        }
       }
-    );
-  }
+    
+  
 
   signOut(): void {
     this.auth.logout();

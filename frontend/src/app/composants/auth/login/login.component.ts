@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(email, password).then(
       ()=> {
         console.log('connexion validé !')
-        this.router.navigate(['/post-form']);
+        this.router.navigate(['/post-list']);
       },
       (error) => {
         // this.errorMessage = error;
@@ -43,8 +43,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-
-
-
 }

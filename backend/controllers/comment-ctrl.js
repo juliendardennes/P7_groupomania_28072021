@@ -43,7 +43,7 @@ exports.modifyComment = (req, res, next) => {
 
 //récupérer tous les commentaires.
 exports.getAllComments = (req, res, next) => {
-  Comment.findAll({ order: [["id", "DESC"]] })
+  Comment.findAll({ order: [["createdAt", "DESC"]] })
     .then((comment) => {
       res.status(200).json(comment);
     })

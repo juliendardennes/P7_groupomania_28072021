@@ -1,0 +1,5 @@
+<form [formGroup]="commentForm" >
+  <label for="content"></label>
+  <input type="text" placeholder= "Commentez ici..." class="comment" formControlName="content" required>
+  <button (click)="onSubmit()" [disabled]="commentForm.invalid">Commentez !</button>
+</form>

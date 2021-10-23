@@ -44,9 +44,9 @@ exports.modifyPost = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-//récupérer tous posts.
+//récupérer tous les posts.
 exports.getAllPosts = (req, res, next) => {
-  Post.findAll({ order: [["id", "DESC"]] })
+  Post.findAll({ order: [["createdAt", "DESC"]] })
     .then((post) => {
       res.status(200).json(post);
     })
