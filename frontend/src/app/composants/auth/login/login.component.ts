@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/post-list']);
       },
       (error) => {
-        // this.errorMessage = error;
         alert('données non valides. Réessayer !')
       }
     );
