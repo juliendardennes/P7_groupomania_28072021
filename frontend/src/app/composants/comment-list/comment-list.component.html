@@ -1,8 +1,8 @@
-<div class="comment-list" *ngIf="PostId === post.comment_id">
 <div class="comment-list">
     <div class="comment-list-item" *ngFor="let comment of comments">
+        <div class="comment-list" *ngIf="PostId === comment.post_id"></div>
             <p>{{ comment.createdAt | date:'dd/MM/yyyy' }} à {{ comment.createdAt | date:'HH:mm' }} :</p>
             <a>{{ comment.content }}</a>
+        </div>
     </div>
-</div>
 </div>
