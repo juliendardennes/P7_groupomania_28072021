@@ -11,6 +11,9 @@
         <a routerLink="../login">Se connecter</a>
       </li>
       <li routerLinkActive="active" *ngIf="isAuth">
+        <a routerLink="../post-list">Accueil</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isAuth">
         <a routerLink="../post-form">Publier</a>
       </li>
       <li *ngIf="isAuth" >

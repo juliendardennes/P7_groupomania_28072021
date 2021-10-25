@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Comment } from '../models/comment.model';
 import { AuthService } from './auth.service';
-
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +15,7 @@ export class CommentService {
     private postId: string;
 
     constructor(private http: HttpClient,
+                private router: Router,
                 private auth: AuthService) {}
 
     createComment(comment: Comment) {
