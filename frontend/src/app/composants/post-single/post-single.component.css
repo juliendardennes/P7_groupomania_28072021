@@ -1,0 +1,10 @@
+.post-list-item {
+  border: 2px solid #fd2900;
+  border-radius: 24px 4px;
+  padding-left: 1em;
+  margin: 2em;
+}
+.timePost {
+  color: grey;
+  font-size: 0.7em;
+}

@@ -4,7 +4,6 @@ const fs = require("fs");
 
 // création d'un post media
 exports.createMedia = (req, res, next) => {
-  console.log("toto");
   Media.create({
     user_id: req.body.user_id,
     media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,

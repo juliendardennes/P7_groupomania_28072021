@@ -1,26 +1,27 @@
 form {
   border: 3px solid #fd2900;
-  border-radius: 10px;
+  border-radius: 4px 24px;
   width: 40em;
-  margin-top: 1em;
   margin-left: auto;
   margin-right: auto;
 }
-h3 {
+h4 {
   margin-left: 1em;
   color: grey;
 }
 .title {
-  margin: 1.2em;
+  margin: 0.2em;
   width: 90%;
 }
 .content {
-  margin: 1.2em;
-  padding: 1em;
+  margin: 0.2em;
   width: 90%;
+  height: 3em;
+  white-space: pre;
 }
 .btn-post {
-  margin: 1em;
+  margin-left: 0.5em;
+  margin-bottom: 0.2em;
   border: 1px solid #fd2900;
   background-color: #fd2900;
   color: white;

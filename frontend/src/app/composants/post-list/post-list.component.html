@@ -1,11 +1,3 @@
-<div class="post-list" *ngIf="!loading">
-  <div class="post-list-item" *ngFor="let post of posts">
-    <div class="timePost">
-      <p>publié le {{ post.createdAt | date:'dd/MM/yyyy' }} à {{ post.createdAt | date:'HH:mm' }}</p>
-    </div>
-    <h4>{{ post.title | uppercase }}</h4>
-    <p> {{ post.content }}</p>
-    <app-comment [postId]="post.id"></app-comment>
-    <app-comment-list [postId]="post.id"></app-comment-list>
-  </div>
-</div>
+<app-post-form></app-post-form>
+
+<app-post-single></app-post-single>

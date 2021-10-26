@@ -21,7 +21,6 @@ import { PostListComponent } from './composants/post-list/post-list.component';
 import { CommentComponent } from './composants/comment/comment.component';
 import { CommentListComponent } from './composants/comment-list/comment-list.component';
 import { PostSingleComponent } from './composants/post-single/post-single.component';
-import { HomeComponent } from './home/home.component';
 
 
 const appRoutes: Routes = [
@@ -29,10 +28,10 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'post-form', component: PostFormComponent},
+  { path: 'post-single', component: PostSingleComponent},
   { path: 'post-list', component: PostListComponent},
   { path: 'comment', component: CommentComponent}, 
   { path: 'comment-list', component: CommentListComponent},
-  { path: 'post-single', component: PostSingleComponent}
   // { path: 'post-form', canActivate: [AuthGuard], component: PostFormComponent},
   // { path: 'post-list', canActivate: [AuthGuard], component: PostListComponent}
 ]
@@ -46,11 +45,9 @@ const appRoutes: Routes = [
     LoginComponent,
     PostFormComponent,
     PostListComponent,
-    PostListComponent,
     CommentComponent,
     CommentListComponent,
     PostSingleComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
