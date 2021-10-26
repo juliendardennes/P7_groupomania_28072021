@@ -1,7 +1,10 @@
 <div class="post-list" *ngIf="!loading">
   <div class="post-list-item" *ngFor="let post of posts">
     <div class="timePost">
-      <p>publié le {{ post.createdAt | date:'dd/MM/yyyy' }} à {{ post.createdAt | date:'HH:mm' }}</p>
+      <p>publié le {{ post.createdAt | date:'dd/MM/yyyy' }} 
+        à {{ post.createdAt | date:'HH:mm' }}
+        par {{ post.user.firstName | uppercase }} {{ post.user.lastName | uppercase }} 
+      </p>
     </div>
     <h4>{{ post.title | uppercase }}</h4>
     <p> {{ post.content }}</p>

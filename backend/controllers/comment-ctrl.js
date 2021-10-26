@@ -1,6 +1,10 @@
 const Comment = require("../models/comment-model");
 const comment = require("../routes/comment-route");
 
+const User = require("../models/user-model");
+
+Comment.belongsTo(User, { foreignKey: "user_id" });
+
 // création d'un commentaire
 exports.createComment = (req, res, next) => {
   Comment.create({
@@ -43,7 +47,10 @@ exports.modifyComment = (req, res, next) => {
 
 //récupérer tous les commentaires.
 exports.getAllComments = (req, res, next) => {
-  Comment.findAll({ order: [["createdAt", "DESC"]] })
+  Comment.findAll({
+    include: [{ model: User }],
+    order: [["createdAt", "DESC"]],
+  })
     .then((comment) => {
       res.status(200).json(comment);
     })

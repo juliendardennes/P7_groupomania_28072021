@@ -74,7 +74,8 @@ export class CommentComponent implements OnInit {
       this.comments.createComment(newComment).then(
         (response: { message: string }) => {
           this.loading = false;
-          this.router.navigate(['post-list']);
+          window.location.reload();
+          // this.router.navigate(['post-list']);
         }
       ).catch(
         (error) => {
