@@ -1,29 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Comment } from 'src/app/models/comment.model';
+import { Post } from 'src/app/models/post.model';
 import { AuthService } from 'src/app/service/auth.service';
-import { CommentService } from 'src/app/service/comment.service';
+import { PostService } from 'src/app/service/post.service';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+  selector: 'app-post-form',
+  templateUrl: './post-form.component.html',
+  styleUrls: ['./post-form.component.css']
 })
-export class CommentComponent implements OnInit {
+export class PostFormComponent implements OnInit {
 
-  commentForm: FormGroup;
+  postForm: FormGroup;
   mode: string;
   loading: boolean;
-  comment: Comment;
+  post: Post;
   errorMsg: string;
-  @Input()postId: string; 
-
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private comments: CommentService,
+              private posts: PostService,
               private auth: AuthService) { }
 
   ngOnInit() {
@@ -32,14 +30,14 @@ export class CommentComponent implements OnInit {
       (params) => {
         if (!params.id) {
           this.mode = 'new';
-          this.initCommentForm();
+          this.initEmptyForm();
           this.loading = false;
         } else {
           this.mode = 'edit';
-          this.comments.getCommentById(params.id).then(
-            (comment: Comment) => {
-              this.comment = comment;
-              this.initModifyForm(comment);
+          this.posts.getPostById(params.id).then(
+            (post: Post) => {
+              this.post = post;
+              this.initModifyForm(post);
               this.loading = false;
             }
           ).catch(
@@ -51,31 +49,33 @@ export class CommentComponent implements OnInit {
       }
     );
   }
-  
-  initCommentForm() {
-    this.commentForm = this.formBuilder.group({
+
+  initEmptyForm() {
+    this.postForm = this.formBuilder.group({
+      title: [null, Validators.required],
       content: [null, Validators.required],
     });
   }
 
-  initModifyForm(comment: Comment) {
-    this.commentForm = this.formBuilder.group({
-      content: [this.comment.content, Validators.required],
+  initModifyForm(post: Post) {
+    this.postForm = this.formBuilder.group({
+      title: [this.post.title, Validators.required],
+      content: [this.post.content, Validators.required],
     });
   }
 
   onSubmit() {
     this.loading = true;
-    const newComment = new Comment();
-    newComment.content = this.commentForm.get('content').value;
-    newComment.postId = this.postId;
-    newComment.userId = JSON.parse(localStorage.getItem("user")).user_id;
+    const newPost = new Post();
+    newPost.title = this.postForm.get('title').value;
+    newPost.content = this.postForm.get('content').value;
+    newPost.userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
-      this.comments.createComment(newComment).then(
+      this.posts.createPost(newPost).then(
         (response: { message: string }) => {
           this.loading = false;
           window.location.reload();
-          // this.router.navigate(['post-list']);
+          this.router.navigate(['post-list']);
         }
       ).catch(
         (error) => {
@@ -86,5 +86,4 @@ export class CommentComponent implements OnInit {
       );
     } 
   }
-
 }

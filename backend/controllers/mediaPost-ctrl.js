@@ -1,6 +1,9 @@
 const Media = require("../models/mediapost-model");
 const media = require("../routes/mediapost-route");
 const fs = require("fs");
+const User = require("../models/user-model");
+
+Media.belongsTo(User, { foreignKey: "user_id" });
 
 // création d'un post media
 exports.createMedia = (req, res, next) => {
@@ -65,7 +68,10 @@ exports.modifyMedia = (req, res, next) => {
 
 //---récupérer tous les posts média
 exports.getAllMedias = (req, res, next) => {
-  Media.findAll({ order: [["id", "DESC"]] })
+  Media.findAll({
+    include: [{ model: User }],
+    order: [["id", "DESC"]],
+  })
     .then((media) => {
       res.status(200).json(media);
     })

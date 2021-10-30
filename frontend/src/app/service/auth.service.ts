@@ -43,7 +43,6 @@ export class AuthService {
           this.httpClient.post('http://localhost:3000/api/auth/login', {email: email, password: password}).subscribe(
             (response: {userId: string, token: string}) => {
               this.userId = response.userId;
-              
               this.isAuth$.next(true);
               resolve(response);
               localStorage.setItem( "user", JSON.stringify(response) );

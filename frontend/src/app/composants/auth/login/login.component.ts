@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.get('password').value;
     this.authService.loginUser(email, password).then(
       ()=> {
-        console.log('connexion validé !')
-        this.router.navigate(['/post-list']);
+        this.router.navigate(['post-list']);
       },
       (error) => {
         alert('données non valides. Réessayer !')

@@ -18,7 +18,6 @@ try {
 }
 
 const Media = sequelize.define("media", {
-  //définition des attributs du modèle
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,

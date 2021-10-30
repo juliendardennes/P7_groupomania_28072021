@@ -1,6 +1,5 @@
 const Comment = require("../models/comment-model");
 const comment = require("../routes/comment-route");
-
 const User = require("../models/user-model");
 
 Comment.belongsTo(User, { foreignKey: "user_id" });

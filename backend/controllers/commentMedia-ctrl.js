@@ -1,5 +1,8 @@
 const CommentMedia = require("../models/commentMedia-model");
 const commentMedia = require("../routes/commentMedia-route");
+const User = require("../models/user-model");
+
+CommentMedia.belongsTo(User, { foreignKey: "user_id" });
 
 // création d'un commentaire
 exports.createCommentMedia = (req, res, next) => {
@@ -43,7 +46,10 @@ exports.modifyCommentMedia = (req, res, next) => {
 
 //récupérer tous les commentaires.
 exports.getAllCommentsMedia = (req, res, next) => {
-  CommentMedia.findAll({ order: [["id", "DESC"]] })
+  CommentMedia.findAll({
+    include: [{ model: User }],
+    order: [["id", "DESC"]],
+  })
     .then((commentMedia) => {
       res.status(200).json(commentMedia);
     })

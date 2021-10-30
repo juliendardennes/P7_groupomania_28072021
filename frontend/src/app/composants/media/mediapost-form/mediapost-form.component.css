@@ -1,0 +1,29 @@
+.file-input {
+  border: 3px solid #fd2900;
+  border-radius: 4px 24px;
+  width: 40em;
+  margin-left: auto;
+  margin-right: auto;
+}
+h4 {
+  margin-left: 1em;
+  color: grey;
+}
+.file {
+  margin: 0.5em;
+}
+.btn-post {
+  margin-left: 0.5em;
+  margin-bottom: 0.2em;
+  border: 1px solid #fd2900;
+  background-color: #fd2900;
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-post:hover {
+  color: #fd2900;
+  background-color: white;
+}
