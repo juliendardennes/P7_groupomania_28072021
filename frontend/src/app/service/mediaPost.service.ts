@@ -16,12 +16,13 @@ export class mediaPostService {
     constructor(private http: HttpClient,
                 private auth: AuthService) {}
 
-    createMediaPost(mediapost: mediaPost) {
+    createMediaPost(media: File, userId: string) {
+      let formdata = new FormData();
+      formdata.append('image', media);
+      formdata.append('user_id',userId);
         return new Promise((resolve, reject) => {
-           this.http.post('http://localhost:3000/api/mediapost', {
-              media: mediapost.media,
-              user_id: mediapost.userId,
-            }).subscribe(
+           this.http.post('http://localhost:3000/api/mediapost', formdata
+            ).subscribe(
             (response: { message: string }) => {
                 resolve(response);
             },

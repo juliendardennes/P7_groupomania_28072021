@@ -25,6 +25,10 @@ import { mediaPostService } from './service/mediaPost.service';
 import { MediapostListComponent } from './composants/media/mediapost-list/mediapost-list.component';
 import { MediapostFormComponent } from './composants/media/mediapost-form/mediapost-form.component';
 import { MediapostSingleComponent } from './composants/media/mediapost-single/mediapost-single.component';
+import { MediacommentListComponent } from './composants/media/mediacomment-list/mediacomment-list.component';
+import { MediacommentComponent } from './composants/media/mediacomment/mediacomment.component';
+import { mediaComment } from './models/mediacomment.model';
+import { mediaCommentService } from './service/mediacomment.service';
 
 const appRoutes: Routes = [
   { path: '', component: PostListComponent},
@@ -37,7 +41,9 @@ const appRoutes: Routes = [
   { path: 'comment-list', component: CommentListComponent},
   { path: 'mediapost-single', component: MediapostSingleComponent},
   { path: 'mediapost-form', component: MediapostFormComponent},
-  { path: 'mediapost-list', component: MediapostListComponent}
+  { path: 'mediapost-list', component: MediapostListComponent},
+  { path: 'mediacomment-list', component: MediacommentListComponent},
+  { path: 'mediacomment', component: MediacommentComponent},
   // { path: 'post-form', canActivate: [AuthGuard], component: PostFormComponent},
   // { path: 'post-list', canActivate: [AuthGuard], component: PostListComponent}
 ]
@@ -57,6 +63,8 @@ const appRoutes: Routes = [
     MediapostListComponent,
     MediapostFormComponent,
     MediapostSingleComponent,
+    MediacommentListComponent,
+    MediacommentComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +74,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AppRoutingModule,
   ],
-  providers: [ AuthService, PostService, mediaPostService, CommentService, FormBuilder, HttpClientModule, HttpClient,
+  providers: [ AuthService, PostService, mediaPostService, CommentService, mediaCommentService, FormBuilder, HttpClientModule, HttpClient,
               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

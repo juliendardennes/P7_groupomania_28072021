@@ -1,3 +1,19 @@
-<p>
-  mediapost-single works!
-</p>
+
+  <div class="mediapost-list" *ngIf="!loading">
+    <div class="mediapost-item" *ngFor="let mediapost of mediaposts">
+      <div class="timeMediaPost">
+        <p>publié le {{ mediapost.createdAt | date:'dd/MM/yyyy' }} 
+          à {{ mediapost.createdAt | date:'HH:mm' }}
+          par {{ mediapost.user.firstName | uppercase }} {{ mediapost.user.lastName | uppercase }} 
+        </p>
+        <img class="media" src="{{ mediapost.media }}">
+      </div>
+
+      <app-mediacomment></app-mediacomment>
+      <app-mediacomment-list></app-mediacomment-list>
+
+      <!-- <app-mediacomment [mediapostId]="mediapost.id"></app-mediacomment>
+      <app-mediacomment-list [mediapostId]="mediapost.id"></app-mediacomment-list> -->
+  
+    </div>
+  </div>

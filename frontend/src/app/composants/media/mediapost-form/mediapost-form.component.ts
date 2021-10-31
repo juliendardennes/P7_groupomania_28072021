@@ -18,6 +18,7 @@ export class MediapostFormComponent implements OnInit {
   mediapost: mediaPost;
   errorMsg: string;
   imagePreview: string;
+  file: File;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -65,13 +66,16 @@ export class MediapostFormComponent implements OnInit {
     });
   }
 
+  onFileAdded(event: Event) {
+    this.file = (event.target as HTMLInputElement).files[0];
+  }
+
   onSubmit() {
     this.loading = true;
-    const newMediaPost = new mediaPost;
-    newMediaPost.media = this.mediaPostForm.get('media').value;
-    newMediaPost.userId = JSON.parse(localStorage.getItem("user")).user_id;
+    const media = this.file;
+    const userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
-      this.mediaposts.createMediaPost(newMediaPost).then(
+      this.mediaposts.createMediaPost(media,userId).then(
         (response: {message: string }) => {
           this.loading = false;
           window.location.reload();
