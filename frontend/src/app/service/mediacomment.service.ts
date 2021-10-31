@@ -12,7 +12,7 @@ export class mediaCommentService {
 
     mediaComment$ = new Subject<mediaComment[]>();
     private userId: string;
-    private mediaPostId: string;
+    private mediapostId: string;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -23,7 +23,7 @@ export class mediaCommentService {
            this.http.post('http://localhost:3000/api/commentMedia', {
               content: mediacomment.content,
               user_id: mediacomment.userId,
-              mediaPost_id: mediacomment.mediapostId,
+              mediapost_id: mediacomment.mediapostId,
             }).subscribe(
             (response: { message: string }) => {
                 resolve(response);

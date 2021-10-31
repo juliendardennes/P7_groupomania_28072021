@@ -7,6 +7,11 @@
 img {
   width: 20em;
   height: auto;
+  margin-bottom: 2em;
+}
+img:hover {
+  margin-left: 15em;
+  transform: scale(1.8);
 }
 .timeMediaPost {
   color: grey;

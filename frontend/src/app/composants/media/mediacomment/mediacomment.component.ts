@@ -17,7 +17,7 @@ export class MediacommentComponent implements OnInit {
   loading: boolean;
   mediacomment: mediaComment;
   errorMsg: string;
-  @Input()mediaPostId: string; 
+  @Input()mediapostId: string; 
 
 
   constructor(private formBuilder: FormBuilder,
@@ -68,7 +68,7 @@ export class MediacommentComponent implements OnInit {
     this.loading = true;
     const newMediaComment = new mediaComment();
     newMediaComment.content = this.mediacommentForm.get('content').value;
-    newMediaComment.mediapostId = this.mediaPostId;
+    newMediaComment.mediapostId = this.mediapostId;
     newMediaComment.userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
       this.mediacomments.createMediaComment(newMediaComment).then(

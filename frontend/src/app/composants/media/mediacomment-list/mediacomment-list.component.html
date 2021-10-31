@@ -1,9 +1,9 @@
 <div class="mediacomment-list-item" *ngFor="let mediacomment of mediacomments">
   <div class="mediacomment-list" *ngIf="mediapostId === mediacomment.mediapost_id">
-      <p> Le{{ mediacomment.createdAt | date:'dd/MM/yyyy' }} 
-          à {{ mediacomment.createdAt | date:'HH:mm' }},
-          {{ mediacomment.user.firstName }} {{ mediacomment.user.lastName }} a dit:
+      <p> Le{{ commentmedia.createdAt | date:'dd/MM/yyyy' }} 
+          à {{ commentmedia.createdAt | date:'HH:mm' }},
+          {{ commentmedia.user.firstName }} {{ commentmedia.user.lastName }} a dit:
       </p>
-      <a>{{ mediacomment.content }}</a>
+      <a>{{ commentmedia.content }}</a>
   </div>
 </div>
