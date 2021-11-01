@@ -5,10 +5,13 @@
   <div class="menu">
     <ul>
       <li routerLinkActive="active" *ngIf="!isAuth">
-        <a routerLink="../signup">S'identifier</a>
+        <a routerLink="../signup">S'inscrire</a>
       </li>
       <li routerLinkActive="active" *ngIf="!isAuth">
         <a routerLink="../login">Se connecter</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isAuth">
+        <a routerLink="../profil">Mon compte</a>
       </li>
       <li routerLinkActive="active" *ngIf="isAuth">
         <a routerLink="../mediapost-list">Media</a>
@@ -24,4 +27,5 @@
       </li>
     </ul>
   </div>
+  
 </div>  

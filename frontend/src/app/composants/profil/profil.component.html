@@ -1,0 +1,17 @@
+<div class="profil">
+  <h3>Paramètres du compte</h3>
+  <div class="information">
+    <div class="modification">
+      <p>Nom: {{ user.lastName }}</p>
+    </div>
+    <div class="modification">
+      <p>Prénom: {{ user.firstName }}</p>
+    </div>
+    <div class="modification">
+      <p>Email: {{ user.email }}</p>
+    </div>
+
+    <button class="delete-account" (click)="deleteUser()" routerLink="/signup">Supprimer le compte</button>
+
+
+  </div>

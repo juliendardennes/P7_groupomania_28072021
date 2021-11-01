@@ -1,0 +1,28 @@
+.profil {
+  border: 2px solid #fd2900;
+  border-radius: 4px 24px;
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+}
+h3 {
+  color: grey;
+  margin-left: 1em;
+}
+.information {
+  margin-left: 2em;
+  color: grey;
+}
+button {
+  margin-left: 0.5em;
+  margin-bottom: 0.2em;
+  border: 1px solid #fd2900;
+  background-color: #fd2900;
+  color: white;
+  font-size: 1em;
+  border-radius: 10px;
+  cursor: pointer;
+}
+p {
+  text-decoration: underline;
+}

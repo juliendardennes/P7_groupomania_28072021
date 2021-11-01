@@ -70,7 +70,7 @@ exports.modifyMedia = (req, res, next) => {
 exports.getAllMedias = (req, res, next) => {
   Media.findAll({
     include: [{ model: User }],
-    order: [["id", "DESC"]],
+    order: [["createdAt", "DESC"]],
   })
     .then((media) => {
       res.status(200).json(media);

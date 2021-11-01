@@ -29,9 +29,11 @@ import { MediacommentListComponent } from './composants/media/mediacomment-list/
 import { MediacommentComponent } from './composants/media/mediacomment/mediacomment.component';
 import { mediaComment } from './models/mediacomment.model';
 import { mediaCommentService } from './service/mediacomment.service';
+import { ProfilComponent } from './composants/profil/profil.component';
 
 const appRoutes: Routes = [
   { path: '', component: PostListComponent},
+  { path: 'profil', component: ProfilComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'post-form', component: PostFormComponent},
@@ -65,6 +67,7 @@ const appRoutes: Routes = [
     MediapostSingleComponent,
     MediacommentListComponent,
     MediacommentComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AppRoutingModule,
   ],
-  providers: [ AuthService, PostService, mediaPostService, CommentService, mediaCommentService, FormBuilder, HttpClientModule, HttpClient,
+  providers: [ AuthService, PostService, mediaPostService, 
+              CommentService, mediaCommentService, FormBuilder, HttpClientModule, HttpClient,
               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
