@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
   initForm() {
     this.loginForm = this.formBuilder.group({
       email:[null,[Validators.required, Validators.email]],
-      password: [null, [Validators.required]]
+      password: [null, [Validators.required, 
+                        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$')]]
     })
   }
   onSubmit() {
