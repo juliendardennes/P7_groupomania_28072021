@@ -12,39 +12,41 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   signUpForm : FormGroup;
-  // errorMessage: string;
+  loading: boolean;
+  errorMsg: string;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) {}
 
+
   ngOnInit() {
-    this.initForm();
+    this.signUpForm = this.formBuilder.group({
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, Validators.required],
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required]
+    });
   }
 
-  initForm() {
-    this.signUpForm = this.formBuilder.group({
-      email:['',[Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
-    })
-  }
   onSubmit() {
+    this.loading = true;
     const email = this.signUpForm.get('email').value;
     const password = this.signUpForm.get('password').value;
     const firstName = this.signUpForm.get('firstName').value;
     const lastName = this.signUpForm.get('lastName').value;
     this.authService.createNewUser(email, password, firstName, lastName).then(
-      ()=> {
-        console.log('inscription validé !')
+      () => {
+        this.loading = false;
         this.router.navigate(['login']);
-      },
+      }
+    ).catch(
       (error) => {
-        // this.errorMessage = error;
-        alert('Il se peut que vous ayez déjà un compte, ou il y a erreur de saisie !')
+        this.loading = false;
+        this.errorMsg = error.message;
       }
     );
   }
-  
+
+
 }

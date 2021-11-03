@@ -13,7 +13,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm : FormGroup;
-  errorMessage: string;
+  errorMsg: string;
+  loading: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -25,20 +26,32 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      email:['',[Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      email:[null,[Validators.required, Validators.email]],
+      password: [null, [Validators.required]]
     })
   }
   onSubmit() {
+    this.loading = true;
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
     this.authService.loginUser(email, password).then(
-      ()=> {
-        this.router.navigate(['post-list']);
-      },
-      (error) => {
-        alert('données non valides. Réessayer !')
+      (response: { message: string }) => {
+        this.authService.loginUser(email, password).then(
+          () => {
+            this.loading = false;
+            this.router.navigate(['/post-list']);
+          }
+        ).catch(
+          (error) => {
+            this.loading = false;
+            this.errorMsg = error.message;
+          }
+        );
       }
-    );
+    ).catch((error) => {
+        this.loading = false;
+        this.errorMsg = error.message;
+    });
   }
+
 }

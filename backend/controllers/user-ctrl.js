@@ -11,27 +11,8 @@ const jwt = require("jsonwebtoken");
 //---Importer le modèle de l'utilisateur
 const User = require("../models/user-model");
 
-// // ------------Regex------------------
-// const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
-// const regexPassword =
-//   /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
 // ---fonction signup, création nouvel utilisateur--
 exports.signup = (req, res, next) => {
-  // if (
-  //   req.body.email == null ||
-  //   req.body.password == null ||
-  //   req.body.lastname == null ||
-  //   req.body.firstname == null
-  // ) {
-  //   return res.status(400).json({ error: "Données incomplètes" });
-  // }
-  // if (!regexEmail.test(req.body.email)) {
-  //   return res.status(400).json({ error: "Email non validé" });
-  // }
-  // if (!regexPassword.test(req.body.password)) {
-  //   return res.status(400).json({ error: "Mot de passe non validé" });
-  // }
   User.findOne({
     attributes: ["email"],
     where: { email: req.body.email },

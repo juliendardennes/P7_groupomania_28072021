@@ -70,7 +70,6 @@ export class AuthService {
       }
 
     logout(): void {
-        console.log('Déconnecté!')
         localStorage.clear();
         this.isAuth$.next(false);
         this.router.navigate(['login']);

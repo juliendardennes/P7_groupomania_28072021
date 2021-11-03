@@ -38,7 +38,7 @@ exports.modifyPost = (req, res, next) => {
         { where: { id: req.params.id } }
       )
         .then(() => {
-          res.status(201).json({ message: "l'image est à jour" });
+          res.status(201).json({ message: "le post est à jour" });
         })
         .catch((error) => {
           res.status(404).json({ error });
