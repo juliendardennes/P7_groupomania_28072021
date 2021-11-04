@@ -8,38 +8,35 @@ import { Router } from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-
 export class SignupComponent implements OnInit {
 
-  signUpForm : FormGroup;
+  signupForm: FormGroup;
   loading: boolean;
   errorMsg: string;
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
-              private router: Router) {}
-
+              private auth: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.signUpForm = this.formBuilder.group({
+    this.signupForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required, 
-                        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$')],
+      password: [null, Validators.required],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required]
     });
   }
 
-  onSubmit() {
+  onSignup() {
     this.loading = true;
-    const email = this.signUpForm.get('email').value;
-    const password = this.signUpForm.get('password').value;
-    const firstName = this.signUpForm.get('firstName').value;
-    const lastName = this.signUpForm.get('lastName').value;
-    this.authService.createNewUser(email, password, firstName, lastName).then(
+    const email = this.signupForm.get('email').value;
+    const password = this.signupForm.get('password').value;
+    const firstName = this.signupForm.get('firstName').value;
+    const lastName = this.signupForm.get('lastName').value;
+    this.auth.createNewUser(email, password, firstName, lastName).then(
       () => {
         this.loading = false;
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     ).catch(
       (error) => {
@@ -48,6 +45,5 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-
 
 }

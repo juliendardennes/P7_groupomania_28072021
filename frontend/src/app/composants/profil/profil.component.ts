@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
-import { Subscription } from 'rxjs/Subscription';
-import { User } from'src/app/models/user.model';
-import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -11,22 +8,14 @@ import { Router} from '@angular/router';
 })
 export class ProfilComponent implements OnInit {
 
-  users: User[];
-  usersSubscription: Subscription;
-  @Input()userId: string;
-
-
-  constructor(private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.usersSubscription = this.authService.isAuth$.subscribe(
-      // (users: User[]) => {
-      //   this.users = users;
-      // }
-    );
-    this.authService.getUserId();
+    // this.deleteUser();
   }
+  // deleteUser(){
+  //   this.authService.deleteUser().subscribe()
+  // }
 
 
 }

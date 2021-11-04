@@ -68,11 +68,16 @@ export class AuthService {
         let data = JSON.parse(user)
         return data.token;
       }
-
+      // ----deconnexion----
     logout(): void {
         localStorage.clear();
         this.isAuth$.next(false);
         this.router.navigate(['login']);
+    }
+
+    // ----suppression d'un compte----
+    deleteUser(){
+      
     }
 
 }

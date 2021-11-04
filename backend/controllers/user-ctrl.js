@@ -15,7 +15,7 @@ const User = require("../models/user-model");
 exports.signup = (req, res, next) => {
   User.findOne({
     attributes: ["email"],
-    where: { email: req.body.email },
+    where: { email: MD5(req.body.email).toString() },
   }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
     .then((user) => {
       if (!user) {
@@ -23,7 +23,8 @@ exports.signup = (req, res, next) => {
           .hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonction async//
           .then((hash) => {
             User.create({
-              email: req.body.email,
+              // email: req.body.email,
+              email: MD5(req.body.email).toString(),
               password: hash,
               firstName: req.body.firstName,
               lastName: req.body.lastName,
