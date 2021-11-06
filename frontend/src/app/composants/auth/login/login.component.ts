@@ -45,13 +45,15 @@ export class LoginComponent implements OnInit {
         ).catch(
           (error) => {
             this.loading = false;
-            this.errorMsg = error.message;
+            // this.errorMsg = error.message;
+            this.errorMsg = error.message.split("01 ")[1];
           }
         );
       }
     ).catch((error) => {
         this.loading = false;
-        this.errorMsg = error.message;
+        // this.errorMsg = error.message;
+        this.errorMsg = error.message.split("01 ")[1];
     });
   }
 
