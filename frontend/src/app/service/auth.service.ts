@@ -77,7 +77,5 @@ export class AuthService {
 
     // ----suppression d'un compte----
     deleteUser(){
-      
     }
-
 }

@@ -47,7 +47,9 @@ exports.signup = (req, res, next) => {
 
 //---fonction login - vérifie si un utilisateur existe déjà ---
 exports.login = (req, res, next) => {
-  User.findOne({ where: { email: req.body.email } })
+  User.findOne({
+    where: { email: MD5(req.body.email).toString() },
+  })
     .then((user) => {
       console.log(user);
       if (!user) {

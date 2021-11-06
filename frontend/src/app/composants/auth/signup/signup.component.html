@@ -1,43 +1,21 @@
-<!-- <form class="auth" [formGroup]="signUpForm" *ngIf="!loading">
-  <h3>S'inscrire</h3>
-  <div class="input">
-    <label for="email"></label>
-    <input type="email" placeholder="Email" class="form-control" formControlName="email">
-  </div>
-  <div class="input">
-    <label for="password"></label>
-    <input type="password" placeholder="Mot de passe" class="form-control" formControlName="password">
-  </div>
-  <div class="input">
-    <label for="firstName"></label>
-    <input type="text" placeholder="Prénom" class="form-control" formControlName="firstName">
-  </div>
-  <div class="input">
-    <label for="lastName"></label>
-    <input type="text" placeholder="Nom" class="form-control" formControlName="lastName">
-  </div>
-    <button class="btn-signup" type="submit" [disabled]="signUpForm.invalid" (click)="onSubmit()">S'inscrire</button>
-    <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
-</form> -->
-
 <form [formGroup]="signupForm" *ngIf="!loading">
   <h3>S'inscrire</h3>
   <div class="form-group">
     <label for="email"></label>
-    <input type="email" placeholder="Email" class="form-control" id="email" formControlName="email">
+    <input type="email" placeholder="Email" formControlName="email">
   </div>
   <div class="form-group">
     <label for="password"></label>
-    <input type="password" placeholder="Mot de passe" class="form-control" id="password" formControlName="password">
+    <input type="password" placeholder="Mot de passe" formControlName="password">
   </div>
   <div class="form-group">
     <label for="firstName"></label>
-    <input type="text" placeholder="Prénom" class="form-control" formControlName="firstName">
+    <input type="text" placeholder="Prénom" formControlName="firstName">
   </div>
   <div class="form-group">
     <label for="lastName"></label>
-    <input type="text" placeholder="Nom" class="form-control" formControlName="lastName">
+    <input type="text" placeholder="Nom" formControlName="lastName">
   </div>
-  <button mat-raised-button class="btn-signup" [disabled]="signupForm.invalid" (click)="onSignup()">S'inscrire</button>
+  <button mat-raised-button class="btn-signup" (click)="onSignup()">S'inscrire</button>
   <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
 </form>

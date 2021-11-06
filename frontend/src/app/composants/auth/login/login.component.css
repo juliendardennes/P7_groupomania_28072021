@@ -1,4 +1,4 @@
-.auth {
+form {
   border: 1px solid #fd2900;
   border-radius: 10px;
   width: 30em;
@@ -10,7 +10,7 @@ h3 {
   margin-left: 1em;
   color: grey;
 }
-.input {
+.form-group {
   margin: 1.2em;
   width: 20em;
   text-align: center;

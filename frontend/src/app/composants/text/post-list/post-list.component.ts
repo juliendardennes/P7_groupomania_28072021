@@ -12,4 +12,5 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
   }
 
+  
 }
