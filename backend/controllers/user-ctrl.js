@@ -16,14 +16,13 @@ exports.signup = (req, res, next) => {
   User.findOne({
     attributes: ["email"],
     where: { email: MD5(req.body.email).toString() },
-  }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
+  })
     .then((user) => {
       if (!user) {
         bcrypt
           .hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonction async//
           .then((hash) => {
             User.create({
-              // email: req.body.email,
               email: MD5(req.body.email).toString(),
               password: hash,
               firstName: req.body.firstName,
@@ -34,7 +33,6 @@ exports.signup = (req, res, next) => {
           })
           .catch((error) => res.status(400).json({ error }));
       } else {
-        // res.status(400).json({ message: "un utilisateur avec cet email existe déjà" });
         res.statusMessage = "un utilisateur avec cet email existe déjà !";
         res.status(401).end();
       }
@@ -53,16 +51,13 @@ exports.login = (req, res, next) => {
     .then((user) => {
       console.log(user);
       if (!user) {
-        return (res.statusMessage = "Utilisateur inconnu");
-        res.status(401).end();
-        // res.status(401).json({ error: " Utilisateur inconnu !" });
+        res.statusMessage = "utilisateur inconnu";
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return (res.statusMessage = "le mot de passe est incorrect");
-            res.status(401).end();
+            res.statusMessage = "Le mot de passe est incorrect";
             // res.status(401).json({ error: " le mot de passe est incorrect !" });
           }
           // si comparaison ok, on renvoit un objet JSON contenant

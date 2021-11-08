@@ -11,11 +11,8 @@ export class ProfilComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    // this.deleteUser();
+   
   }
-  // deleteUser(){
-  //   this.authService.deleteUser().subscribe()
-  // }
 
 
 }

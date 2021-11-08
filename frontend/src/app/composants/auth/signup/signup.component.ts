@@ -20,10 +20,10 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required]
+      email: this.formBuilder.control('', [Validators.required, Validators.email]),
+      password: this.formBuilder.control('', [Validators.required]),
+      firstName: this.formBuilder.control('',[Validators.required]),
+      lastName: this.formBuilder.control('',[Validators.required]),
     });
   }
 
@@ -41,7 +41,6 @@ export class SignupComponent implements OnInit {
     ).catch(
       (error) => {
         this.loading = false;
-        // this.errorMsg = error.message;
         this.errorMsg = error.message.split("01 ")[1];
       }
     );

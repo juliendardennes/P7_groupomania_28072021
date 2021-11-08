@@ -57,6 +57,7 @@ export class AuthService {
       getUserId() {
         return this.userId;
       }
+      
       getToken() {
         let user = localStorage.getItem('user');
         if (
