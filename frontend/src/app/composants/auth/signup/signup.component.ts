@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
-  // loading: boolean;
+  loading: boolean;
   errorMsg: string;
 
   constructor(private formBuilder: FormBuilder,
@@ -32,19 +32,19 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.loading = true;
+    this.loading = true;
     const email = this.signupForm.get('email').value;
     const password = this.signupForm.get('password').value;
     const firstName = this.signupForm.get('firstName').value;
     const lastName = this.signupForm.get('lastName').value;
     this.auth.createNewUser(email, password, firstName, lastName).then(
       () => {
-        // this.loading = false;
+        this.loading = false;
         this.router.navigate(['/login']);
       }
     ),(error) => {
-        // this.loading = false;
-        // this.errorMsg = error.message.split("01 ")[1]; 
+        this.loading = false;
+        this.errorMsg = error.message.split("01 ")[1]; 
         this.errorMsg = error;
       }
   }

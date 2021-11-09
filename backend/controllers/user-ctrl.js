@@ -13,6 +13,13 @@ const User = require("../models/user-model");
 
 // ---fonction signup, création nouvel utilisateur--
 exports.signup = (req, res, next) => {
+  email = null;
+  if (!req.body.email.includes(("@" && ".com") || ".fr" || ".net")) {
+    res.statusMessage = "Veuillez entrer une adresse mail valide !";
+    res.status(401).end();
+  } else {
+    email = req.body.email;
+  }
   User.findOne({
     attributes: ["email"],
     where: { email: MD5(req.body.email).toString() },
