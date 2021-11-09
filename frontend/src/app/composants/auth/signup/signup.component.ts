@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
-  loading: boolean;
+  // loading: boolean;
   errorMsg: string;
 
   constructor(private formBuilder: FormBuilder,
@@ -19,31 +19,34 @@ export class SignupComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
     this.signupForm = this.formBuilder.group({
-      email: this.formBuilder.control('', [Validators.required, Validators.email]),
-      password: this.formBuilder.control('', [Validators.required]),
-      firstName: this.formBuilder.control('',[Validators.required]),
-      lastName: this.formBuilder.control('',[Validators.required]),
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      firstName: ['',[Validators.required]],
+      lastName: ['',[Validators.required]],
     });
   }
 
-  onSignup() {
-    this.loading = true;
+  onSubmit() {
+    // this.loading = true;
     const email = this.signupForm.get('email').value;
     const password = this.signupForm.get('password').value;
     const firstName = this.signupForm.get('firstName').value;
     const lastName = this.signupForm.get('lastName').value;
     this.auth.createNewUser(email, password, firstName, lastName).then(
       () => {
-        this.loading = false;
+        // this.loading = false;
         this.router.navigate(['/login']);
       }
-    ).catch(
-      (error) => {
-        this.loading = false;
-        this.errorMsg = error.message.split("01 ")[1];
+    ),(error) => {
+        // this.loading = false;
+        // this.errorMsg = error.message.split("01 ")[1]; 
+        this.errorMsg = error;
       }
-    );
   }
 
 }

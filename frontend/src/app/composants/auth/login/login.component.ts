@@ -12,13 +12,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
 
-  loginForm : FormGroup;
-  errorMsg: string;
+  loginForm: FormGroup;
   loading: boolean;
+  errorMsg: string;
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
-              private router: Router) {}
+              private auth: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -26,35 +26,29 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      email:[null,[Validators.required, Validators.email]],
-      password: [null, [Validators.required, 
-                        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$')]]
-    })
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      firstName: ['',[Validators.required]],
+      lastName: ['',[Validators.required]],
+    });
   }
+
   onSubmit() {
-    this.loading = true;
+    // this.loading = true;
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    this.authService.loginUser(email, password).then(
-      (response: { message: string }) => {
-        this.authService.loginUser(email, password).then(
-          () => {
-            this.loading = false;
-            this.router.navigate(['/post-list']);
-          }
-        ).catch(
-          (error) => {
-            this.loading = false;
-            // this.errorMsg = error.message;
-            this.errorMsg = error.message.split("01 ")[1];
-          }
-        );
+    const firstName = this.loginForm.get('firstName').value;
+    const lastName = this.loginForm.get('lastName').value;
+    this.auth.createNewUser(email, password, firstName, lastName).then(
+      () => {
+        // this.loading = false;
+        this.router.navigate(['/post-list']);
       }
-    ).catch((error) => {
-        this.loading = false;
-        // this.errorMsg = error.message;
-        this.errorMsg = error.message.split("01 ")[1];
-    });
+    ),(error) => {
+        // this.loading = false;
+        // this.errorMsg = error.message.split("01 ")[1]; 
+        this.errorMsg = error;
+      }
   }
 
 }
