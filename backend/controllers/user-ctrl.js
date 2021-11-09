@@ -58,7 +58,7 @@ exports.login = (req, res, next) => {
         .then((valid) => {
           if (!valid) {
             res.statusMessage = "Le mot de passe est incorrect";
-            // res.status(401).json({ error: " le mot de passe est incorrect !" });
+            res.status(401).end();
           }
           // si comparaison ok, on renvoit un objet JSON contenant
           res.status(200).json({
