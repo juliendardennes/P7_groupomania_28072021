@@ -19,15 +19,19 @@ export class SignupComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
     this.signupForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      firstName: ['',[Validators.required]],
+      lastName: ['',[Validators.required]],
     });
   }
 
-  onSignup() {
+  onSubmit() {
     this.loading = true;
     const email = this.signupForm.get('email').value;
     const password = this.signupForm.get('password').value;
@@ -38,12 +42,11 @@ export class SignupComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['/login']);
       }
-    ).catch(
-      (error) => {
+    ),(error) => {
         this.loading = false;
-        this.errorMsg = error.message;
+        this.errorMsg = error.message.split("01 ")[1]; 
+        this.errorMsg = error;
       }
-    );
   }
 
 }

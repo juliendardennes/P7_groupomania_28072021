@@ -15,7 +15,11 @@ const User = require("../models/user-model");
 exports.signup = (req, res, next) => {
   email = null;
   if (!req.body.email.includes(("@" && ".com") || ".fr" || ".net")) {
+<<<<<<< HEAD
     res.statusMessage = "Veulliez entrer une adresse mail valide !";
+=======
+    res.statusMessage = "Veuillez entrer une adresse mail valide !";
+>>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
     res.status(401).end();
   } else {
     email = req.body.email;
@@ -23,7 +27,7 @@ exports.signup = (req, res, next) => {
   User.findOne({
     attributes: ["email"],
     where: { email: MD5(req.body.email).toString() },
-  }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
+  })
     .then((user) => {
       if (!user) {
         bcrypt
@@ -40,8 +44,12 @@ exports.signup = (req, res, next) => {
           })
           .catch((error) => res.status(400).json({ error }));
       } else {
+<<<<<<< HEAD
         res.statusMessage =
           " Un utilisateur avec cette adresse mail, existe déjà !";
+=======
+        res.statusMessage = "un utilisateur avec cet email existe déjà !";
+>>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
         res.status(401).end();
       }
     })
@@ -58,17 +66,15 @@ exports.login = (req, res, next) => {
     .then((user) => {
       console.log(user);
       if (!user) {
-        return res.status(401).json({ error: " Utilisateur inconnu !" });
+        res.statusMessage = "utilisateur inconnu";
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res
-              .status(401)
-              .json({ error: " le mot de passe est incorrect !" });
+            res.statusMessage = "Le mot de passe est incorrect";
+            res.status(401).end();
           }
-
           // si comparaison ok, on renvoit un objet JSON contenant
           res.status(200).json({
             // l'userId

@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" *ngIf="!loading"> 
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> 
   <h3>Se connecter</h3>
   <div class="form-group">
     <label for="email"></label>
@@ -8,10 +8,10 @@
     <label for="password"></label>
     <input type="password" placeholder="Mot de passe" formControlName="password" required>
   </div>
-  <button class="btn-login" (click)="onSubmit()">Se connecter</button>
+  <button class="btn-login">Se connecter</button>
   <p >Si vous n'avez pas encore de compte<br>cliquez <a routerLink="/signup">ici</a></p>  
-  <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
 </form>
+<p class="text-danger">{{ errorMsg }}</p>
 
  
 

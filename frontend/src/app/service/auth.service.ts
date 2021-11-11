@@ -57,6 +57,7 @@ export class AuthService {
       getUserId() {
         return this.userId;
       }
+      
       getToken() {
         let user = localStorage.getItem('user');
         if (
@@ -75,7 +76,5 @@ export class AuthService {
         this.router.navigate(['login']);
     }
 
-    // ----suppression d'un compte----
-    deleteUser(){
-    }
+  
 }

@@ -1,6 +1,7 @@
-<!-- <div class="profil">
-  <h3>Paramètres du compte</h3>
+<div class="profil">
+  <h1>Paramètre du compte</h1>
   <div class="information">
+<<<<<<< HEAD
     <div class="modification">
       <p>Nom: {{ user.lastName }}</p>
     </div>
@@ -37,3 +38,17 @@
   <button class="delete-account" (click)="deleteUser()" routerLink="/signup">supprimer le compte</button>
   <button routerLink="/post-list">Retour à l'accueil</button>
 </div>
+=======
+      <div class="modification" >
+          <p>Nom : {{ user.lastname }} </p>
+      </div>
+      <div class="modification">
+          <p>Prénom : {{ user.firstname }}</p>
+      </div>
+      <div class="modification">
+          <p>Email : {{ user.email }}</p>
+      </div>
+      <button class="delete-account" (click)="deleteUser()" routerLink="/signup">Supprimer le compte</button>
+  </div>
+</div> 
+>>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
