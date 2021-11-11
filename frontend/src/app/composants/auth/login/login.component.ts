@@ -34,19 +34,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.loading = true;
+    this.loading = true;
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
     const firstName = this.loginForm.get('firstName').value;
     const lastName = this.loginForm.get('lastName').value;
     this.auth.createNewUser(email, password, firstName, lastName).then(
       () => {
-        // this.loading = false;
+        this.loading = false;
         this.router.navigate(['/post-list']);
       }
     ),(error) => {
-        // this.loading = false;
-        // this.errorMsg = error.message.split("01 ")[1]; 
+        this.loading = false;
+        this.errorMsg = error.message.split("01 ")[1]; 
         this.errorMsg = error;
       }
   }

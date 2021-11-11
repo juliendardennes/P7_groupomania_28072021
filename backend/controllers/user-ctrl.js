@@ -15,11 +15,7 @@ const User = require("../models/user-model");
 exports.signup = (req, res, next) => {
   email = null;
   if (!req.body.email.includes(("@" && ".com") || ".fr" || ".net")) {
-<<<<<<< HEAD
     res.statusMessage = "Veulliez entrer une adresse mail valide !";
-=======
-    res.statusMessage = "Veuillez entrer une adresse mail valide !";
->>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
     res.status(401).end();
   } else {
     email = req.body.email;
@@ -38,18 +34,15 @@ exports.signup = (req, res, next) => {
               password: hash,
               firstName: req.body.firstName,
               lastName: req.body.lastName,
+              isAdmin: 0,
             }).then((user) => {
               res.status(201).json(user);
             });
           })
           .catch((error) => res.status(400).json({ error }));
       } else {
-<<<<<<< HEAD
         res.statusMessage =
           " Un utilisateur avec cette adresse mail, existe déjà !";
-=======
-        res.statusMessage = "un utilisateur avec cet email existe déjà !";
->>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
         res.status(401).end();
       }
     })
@@ -64,7 +57,6 @@ exports.login = (req, res, next) => {
     where: { email: MD5(req.body.email).toString() },
   })
     .then((user) => {
-      console.log(user);
       if (!user) {
         res.statusMessage = "utilisateur inconnu";
       }
@@ -79,6 +71,7 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             // l'userId
             user_id: user.id,
+            isAdmin: user.isAdmin,
             // un token - fonction sign de jsonwebtoken
             token: jwt.sign(
               // 1er argument: données à encoder

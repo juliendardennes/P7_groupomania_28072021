@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <form [formGroup]="signupForm" *ngIf="!loading" (ngSubmit)="onSignup()">
-=======
-<form [formGroup]="signupForm" *ngIf="!loading" (ngSubmit)="onSubmit()">
->>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
   <h3>S'inscrire</h3>
   <div class="form-group">
     <label for="email"></label>
@@ -20,11 +16,7 @@
     <label for="lastName"></label>
     <input type="text" placeholder="Nom" formControlName="lastName">
   </div>
-<<<<<<< HEAD
   <button class="btn-signup">S'inscrire</button>
   <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
-=======
-  <button mat-raised-button class="btn-signup" type="submit">S'inscrire</button>
->>>>>>> dab8453b1e910b011f78d885bcdf9e8e54ad6275
 </form>
 <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
