@@ -1,39 +1,31 @@
 form {
-  border: 1px solid #fd2900;
+  border: 3px solid #fd2900;
   border-radius: 10px;
-  width: 30em;
-  margin-top: 2em;
-  margin-left: auto;
-  margin-right: auto;
+  width: 90%;
 }
 h3 {
   margin-left: 1em;
   color: grey;
+  font-size: 1.5em;
 }
 .form-group {
   margin: 1.2em;
-  width: 20em;
-  text-align: center;
+  width: 90%;
+}
+input {
+  width: 100%;
+  font-size: 1.5em;
 }
 .btn-login {
   margin: 1em;
   padding: 0.6em;
-  border: 1px solid #fd2900;
   background-color: #fd2900;
   color: white;
-  font-size: 1em;
+  font-size: 1.3em;
   font-weight: bold;
   border-radius: 10px;
-  cursor: pointer;
-}
-.btn-login:hover {
-  box-shadow: 0 0 15px #fd2900;
 }
 p {
   text-align: center;
-  font-size: 13px;
-}
-
-a {
-  color: #fd2900;
+  font-size: 1.4em;
 }

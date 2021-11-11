@@ -1,5 +1,5 @@
 .comment {
-  width: 70%;
+  width: 90%;
   color: black;
   margin-bottom: 1em;
 }
@@ -7,4 +7,6 @@ button {
   background-color: #fd2900;
   color: white;
   cursor: pointer;
+  border-radius: 7px;
+  margin-bottom: 0.5em;
 }

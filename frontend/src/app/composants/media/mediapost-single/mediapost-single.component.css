@@ -5,15 +5,16 @@
   margin: 2em;
 }
 img {
-  width: 20em;
-  height: auto;
-  margin-bottom: 2em;
-}
-img:hover {
-  margin-left: 15em;
-  transform: scale(1.8);
+  width: 90%;
+  margin-bottom: 1em;
 }
 .timeMediaPost {
   color: grey;
   font-size: 0.7em;
+}
+@media only screen and (min-width: 900px) {
+  img {
+    width: 40%;
+    height: auto;
+  }
 }

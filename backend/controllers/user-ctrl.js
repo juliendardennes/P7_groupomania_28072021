@@ -13,6 +13,13 @@ const User = require("../models/user-model");
 
 // ---fonction signup, création nouvel utilisateur--
 exports.signup = (req, res, next) => {
+  email = null;
+  if (!req.body.email.includes(("@" && ".com") || ".fr" || ".net")) {
+    res.statusMessage = "Veulliez entrer une adresse mail valide !";
+    res.status(401).end();
+  } else {
+    email = req.body.email;
+  }
   User.findOne({
     attributes: ["email"],
     where: { email: MD5(req.body.email).toString() },
@@ -23,7 +30,6 @@ exports.signup = (req, res, next) => {
           .hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonction async//
           .then((hash) => {
             User.create({
-              // email: req.body.email,
               email: MD5(req.body.email).toString(),
               password: hash,
               firstName: req.body.firstName,
@@ -34,12 +40,11 @@ exports.signup = (req, res, next) => {
           })
           .catch((error) => res.status(400).json({ error }));
       } else {
-        res
-          .status(400)
-          .json({ message: "un utilisateur avec cet email existe déjà" });
+        res.statusMessage =
+          " Un utilisateur avec cette adresse mail, existe déjà !";
+        res.status(401).end();
       }
     })
-
     .catch((error) =>
       res.status(500).json({ error: "Utilisateur déjà existant" })
     );

@@ -1,5 +1,5 @@
 
-<form class="file-input" [formGroup]="mediaPostForm">
+<form [formGroup]="mediaPostForm">
   <h4>Partagez votre image</h4>
   <input class="file" type="file" accept=".jpg, .jpeg, .png, .gif, .mp4" (change)="onFileAdded($event)">
   <button class="btn-post"  (click)="onSubmit()">Publier</button>
