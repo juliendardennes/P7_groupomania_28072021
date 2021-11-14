@@ -58,4 +58,17 @@ export class PostService {
           );
         });
       }
+
+      deletePost(id: string) {
+        return new Promise((resolve, reject) => {
+          this.http.delete('http://localhost:3000/api/posts/' + id).subscribe(
+            (response: {message: string}) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
 }

@@ -7,6 +7,6 @@
   <div class="input">
     <label for="content"></label>
     <input type="textarea" placeholder="Que voulez-vous dire ..." class="content" formControlName="content"  required>
-    <button class="btn-post"  (click)="onSubmit()" >Publier</button>
+    <button class="btn-post" [disabled]="postForm.invalid" (click)="onSubmit()" >Publier</button>
   </div>
 </form>

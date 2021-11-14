@@ -3,6 +3,7 @@ import { PostService } from 'src/app/service/post.service';
 import { Post } from 'src/app/models/post.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import { PostListComponent } from '../post-list/post-list.component';
 
 @Component({
   selector: 'app-post-single',
@@ -14,8 +15,10 @@ export class PostSingleComponent implements OnInit {
   post: Post;
   posts: Post[];
   postsSubscription: Subscription;
+  errorMsg: string;
 
   constructor(private postsService: PostService, 
+              private postListComponent: PostListComponent,
               private router: Router) {}
 
   ngOnInit() {
@@ -25,6 +28,10 @@ export class PostSingleComponent implements OnInit {
       }
     );
     this.postsService.getPosts();
+  }
+
+  deletePost(){
+    
   }
 
 }

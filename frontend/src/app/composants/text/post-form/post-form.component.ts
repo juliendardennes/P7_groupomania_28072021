@@ -14,7 +14,6 @@ export class PostFormComponent implements OnInit {
 
   postForm: FormGroup;
   mode: string;
-  loading: boolean;
   post: Post;
   errorMsg: string;
 
@@ -25,20 +24,17 @@ export class PostFormComponent implements OnInit {
               private auth: AuthService) { }
 
   ngOnInit() {
-    this.loading = true;
     this.route.params.subscribe(
       (params) => {
         if (!params.id) {
           this.mode = 'new';
           this.initEmptyForm();
-          this.loading = false;
         } else {
           this.mode = 'edit';
           this.posts.getPostById(params.id).then(
             (post: Post) => {
               this.post = post;
               this.initModifyForm(post);
-              this.loading = false;
             }
           ).catch(
             (error) => {
@@ -65,7 +61,6 @@ export class PostFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = true;
     const newPost = new Post();
     newPost.title = this.postForm.get('title').value;
     newPost.content = this.postForm.get('content').value;
@@ -73,14 +68,12 @@ export class PostFormComponent implements OnInit {
     if (this.mode === 'new') {
       this.posts.createPost(newPost).then(
         (response: { message: string }) => {
-          this.loading = false;
           window.location.reload();
           this.router.navigate(['post-list']);
         }
       ).catch(
         (error) => {
           console.error(error);
-          this.loading = false;
           this.errorMsg = error.message;
         }
       );

@@ -1,4 +1,4 @@
-<form [formGroup]="signupForm" *ngIf="!loading" (ngSubmit)="onSignup()">
+<form [formGroup]="signupForm">
   <h3>S'inscrire</h3>
   <div class="form-group">
     <label for="email"></label>
@@ -16,7 +16,6 @@
     <label for="lastName"></label>
     <input type="text" placeholder="Nom" formControlName="lastName">
   </div>
-  <button class="btn-signup">S'inscrire</button>
+  <button class="btn-signup" [disabled]="signupForm.invalid" (click)="onSubmit()">S'inscrire</button>
   <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
 </form>
-<p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>

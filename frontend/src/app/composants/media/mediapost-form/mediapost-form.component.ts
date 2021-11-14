@@ -14,7 +14,6 @@ export class MediapostFormComponent implements OnInit {
 
   mediaPostForm: FormGroup;
   mode: string;
-  loading: boolean;
   mediapost: mediaPost;
   errorMsg: string;
   imagePreview: string;
@@ -27,20 +26,17 @@ export class MediapostFormComponent implements OnInit {
               private auth: AuthService) { }
 
   ngOnInit() {
-    this.loading = true;
     this.route.params.subscribe(
       (params) => {
         if (!params.id) {
           this.mode = 'new';
           this.initEmptyForm();
-          this.loading = false;
         } else {
           this.mode = 'edit';
           this.mediaposts.getMediaPostById(params.id).then(
             (mediapost: mediaPost) => {
               this.mediapost = mediapost;
               this.initModifyForm(mediapost);
-              this.loading = false;
             }
           ) .catch(
             (error) => {
@@ -71,20 +67,17 @@ export class MediapostFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = true;
     const media = this.file;
     const userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
       this.mediaposts.createMediaPost(media,userId).then(
         (response: {message: string }) => {
-          this.loading = false;
           window.location.reload();
           this.router.navigate(['mediapost-list']);
         }
       ).catch(
         (error) => {
           console.error(error);
-          this.loading = false;
           this.errorMsg = error.message;
         }
       );

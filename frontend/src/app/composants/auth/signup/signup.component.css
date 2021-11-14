@@ -25,3 +25,12 @@ input {
   font-weight: bold;
   border-radius: 10px;
 }
+
+@media only screen and (min-width: 900px) {
+  form {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+  }
+}

@@ -14,7 +14,6 @@ export class CommentComponent implements OnInit {
 
   commentForm: FormGroup;
   mode: string;
-  loading: boolean;
   comment: Comment;
   errorMsg: string;
   @Input()postId: string; 
@@ -27,20 +26,17 @@ export class CommentComponent implements OnInit {
               private auth: AuthService) { }
 
   ngOnInit() {
-    this.loading = true;
     this.route.params.subscribe(
       (params) => {
         if (!params.id) {
           this.mode = 'new';
           this.initCommentForm();
-          this.loading = false;
         } else {
           this.mode = 'edit';
           this.comments.getCommentById(params.id).then(
             (comment: Comment) => {
               this.comment = comment;
               this.initModifyForm(comment);
-              this.loading = false;
             }
           ).catch(
             (error) => {
@@ -65,7 +61,6 @@ export class CommentComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = true;
     const newComment = new Comment();
     newComment.content = this.commentForm.get('content').value;
     newComment.postId = this.postId;
@@ -73,13 +68,11 @@ export class CommentComponent implements OnInit {
     if (this.mode === 'new') {
       this.comments.createComment(newComment).then(
         (response: { message: string }) => {
-          this.loading = false;
           window.location.reload();
         }
       ).catch(
         (error) => {
           console.error(error);
-          this.loading = false;
           this.errorMsg = error.message;
         }
       );
