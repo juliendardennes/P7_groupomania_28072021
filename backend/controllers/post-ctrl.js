@@ -16,8 +16,8 @@ exports.createPost = (req, res, next) => {
 };
 
 // Suppression d'un post //
-exports.deletePost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
+exports.deletePost = (req, res) => {
+  Post.destroy({ where: { id: req.params.id } })
     .then((post) => {
       Post.destroy({ where: { id: req.params.id } })
         .then(() => res.status(200).json({ message: "post supprimé" }))
