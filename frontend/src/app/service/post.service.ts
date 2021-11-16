@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 })
 export class PostService {
 
+    posts: Post[] = [];
     post$ = new Subject<Post[]>();
     private userId: string;
 

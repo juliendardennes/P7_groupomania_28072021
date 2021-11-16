@@ -5,7 +5,7 @@
         à {{ post.createdAt | date:'HH:mm' }}
         par {{ post.user.firstName | uppercase }} {{ post.user.lastName | uppercase }} 
       </p>
-      <button class="deleteAdmin" *ngIf="userId === post._id || isAdmin === true " 
+      <button class="deleteAdmin" 
               (click)="onDelete()"><i class="far fa-trash-alt"></i>
       </button>
     </div>

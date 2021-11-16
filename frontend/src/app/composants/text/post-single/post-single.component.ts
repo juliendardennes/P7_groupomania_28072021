@@ -37,30 +37,15 @@ export class PostSingleComponent implements OnInit {
     this.postsService.getPosts();
   }
 
-  // ngOnInit(): void {
-  //   this.userId = localStorage.getItem('user_id');
-  //   this.userIsAdmin();
-  //   this.loading = true;
-  //   this.route.params.subscribe(
-  //     (params) => {
-  //       this.postsService.getPostById(params.id).then(
-  //         (post: Post) => {
-  //           this.post = post;
-  //           this.loading = false;
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
 
-  userIsAdmin() {
-    let admin = this.auth.getAdmin();
-    if (admin === "true") {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
-  }
+  // userIsAdmin() {
+  //   let admin = this.auth.getAdmin();
+  //   if (admin === "true") {
+  //     this.isAdmin = true;
+  //   } else {
+  //     this.isAdmin = false;
+  //   }
+  // }
 
   // ---------------------------
 
