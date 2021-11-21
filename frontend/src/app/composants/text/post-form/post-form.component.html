@@ -7,7 +7,7 @@
   <div class="form-group">
     <label for="content"></label>
     <input type="textarea" placeholder="Que voulez-vous dire ..." class="form-control" formControlName="content">
-    <button class="btn-post" [disabled]="postForm.invalid" (click)="onSubmit()" >Publier</button>
+    <button class="btn-post" (click)="onSubmit()" >Publier</button>
   </div>
    <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
 </form>

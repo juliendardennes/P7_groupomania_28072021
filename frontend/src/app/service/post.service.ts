@@ -22,7 +22,7 @@ export class PostService {
            this.http.post('http://localhost:3000/api/posts', {
             title: post.title,
             content: post.content,
-            user_id: userPost,
+            user_id: post.userId,
            }
            ).subscribe(
             (response: { message: string }) => {
