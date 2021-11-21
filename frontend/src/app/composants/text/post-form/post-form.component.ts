@@ -62,35 +62,14 @@ export class PostFormComponent implements OnInit {
     });
   }
 
-  // onSubmit() {
-  //   this.loading = true;
-  //   const newPost = new Post();
-  //   newPost.title = this.postForm.get('title').value;
-  //   newPost.content = this.postForm.get('content').value;
-  //   newPost.userId = JSON.parse(localStorage.getItem("user")).user_id;
-  //   if (this.mode === 'new') {
-  //     this.posts.createPost(newPost.title, newPost.content).then(
-  //       (response: { message: string }) => {
-  //         this.loading = false;
-  //         window.location.reload();
-  //         this.router.navigate(['post-list']);
-  //       }
-  //     ).catch(
-  //       (error) => {
-  //         console.error(error);
-  //         this.loading = false;
-  //         this.errorMsg = error.message;
-  //       }
-  //     );
-  //   } 
-  // }
   onSubmit() {
-    const title = this.postForm.get('title').value;
-    const content = this.postForm.get('content').value;
-    const userId = JSON.parse(localStorage.getItem("user")).user_id;
+    const newPost = new Post();
+    newPost.title = this.postForm.get('title').value;
+    newPost.content = this.postForm.get('content').value;
+    newPost.userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
-      this.posts.createPost(title,content,userId).then(
-        (response: {message: string }) => {
+      this.posts.createPost(newPost).then(
+        (response: { message: string }) => {
           window.location.reload();
           this.router.navigate(['post-list']);
         }
@@ -100,7 +79,7 @@ export class PostFormComponent implements OnInit {
           this.errorMsg = error.message;
         }
       );
-    }
+    } 
   }
   
 }
