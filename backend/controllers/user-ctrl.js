@@ -116,14 +116,3 @@ exports.modifyUser = (req, res) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
-// // supprimer un utilisateur
-// exports.deleteUser = async (req, res, next) => {
-//   await User.destroy({
-//     where: {
-//       id: req.params.id,
-//     },
-//   })
-//     .then(() => res.status(201).json({ message: "Utilisateur supprimé !" }))
-//     .catch((error) => res.status(400).json({ error }));
-// };
