@@ -12,6 +12,7 @@ import { User } from 'src/app/models/User.model';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
+  loading: boolean;
   errorMsg: string;
   user: User;
 
@@ -20,12 +21,16 @@ export class SignupComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.signupForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
-      firstName: [null,[Validators.required]],
-      lastName: [null,[Validators.required]],
-    });
+    if (this.auth.getToken()) {
+      this.router.navigate(['post-list']);
+    } else {
+      this.signupForm = this.formBuilder.group({
+        email: [null, [Validators.required, Validators.email]],
+        password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+        firstName: [null,[Validators.required]],
+        lastName: [null,[Validators.required]],
+      });
+    }
   }
 
   onSubmit() {

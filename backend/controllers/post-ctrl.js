@@ -5,7 +5,7 @@ const post = require("../routes/post-route");
 Post.belongsTo(User, { foreignKey: "user_id" });
 
 // création d'un post
-exports.createPost = (req, res, next) => {
+exports.createPost = (req, res) => {
   Post.create({
     user_id: req.body.user_id,
     title: req.body.title,
@@ -48,7 +48,7 @@ exports.modifyPost = (req, res, next) => {
 };
 
 //récupérer tous les posts.
-exports.getAllPosts = (req, res, next) => {
+exports.getAllPosts = (req, res) => {
   Post.findAll({
     include: [{ model: User }],
     order: [["createdAt", "DESC"]],
@@ -62,7 +62,7 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 //récupérer un post.
-exports.getOnePost = (req, res, next) => {
+exports.getOnePost = (req, res) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
       res.status(200).json(post);

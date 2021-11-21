@@ -40,13 +40,15 @@ exports.signup = (req, res) => {
 };
 
 //---fonction login - vérifie si un utilisateur existe déjà ---
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   User.findOne({
-    where: { email: MD5(req.body.email).toString() },
+    where: {
+      email: MD5(req.body.email).toString(),
+    },
   })
     .then((user) => {
       if (!user) {
-        res.statusMessage = "utilisateur inconnu";
+        res.statusMessage = "utilisateur non trouvé";
       }
       bcrypt
         .compare(req.body.password, user.password)
@@ -67,32 +69,7 @@ exports.login = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-// Suppression d'un compte //
-exports.deleteUser = (req, res, next) => {
-  User.findOne({ where: { id: req.params.id } })
-    .then((user) => {
-      User.destroy({ where: { id: req.params.id } }) // Méthode //
-        .then(() => res.status(200).json({ message: "Compte supprimé" }))
-        .catch((error) => res.status(400).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
-};
-
-// ----------modifier un utilisateur------------
-exports.modifyUser = (req, res, next) => {
-  User.findOne({ where: { id: req.params.id } })
-    .then((user) => {
-      lastName = req.body.lastName;
-      firstName = req.body.firstName;
-      User.update()
-        .then(() => res.status(201).json({ message: " Compte modifié !" }))
-        .catch(() => res.status(400).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
-};
-
 // pour récupérer un compte utilisateur.
-
 exports.getOneUser = (req, res) => {
   User.findOne({
     where: {
@@ -110,20 +87,43 @@ exports.getOneUser = (req, res) => {
 };
 
 // pour récupérer tous les comptes d'utilisateurs.
-exports.getAllUsers = (req, res, next) => {
-  // User.findAll({ attributes: ["id", "firstName", "lastName"] })
+exports.getAllUsers = (req, res) => {
   User.findAll({})
     .then((users) => res.status(200).json(users))
     .catch((error) => res.status(400).json({ error }));
 };
 
-// supprimer un utilisateur
-exports.deleteUser = async (req, res, next) => {
-  await User.destroy({
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then(() => res.status(201).json({ message: "Utilisateur supprimé !" }))
-    .catch((error) => res.status(400).json({ error }));
+// Suppression d'un compte //
+exports.deleteUser = (req, res) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      User.destroy({ where: { id: req.params.id } }) // Méthode //
+        .then(() => res.status(200).json({ message: "Compte supprimé" }))
+        .catch((error) => res.status(400).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
+
+// ----------modifier un utilisateur------------
+exports.modifyUser = (req, res) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      lastName = req.body.lastName;
+      firstName = req.body.firstName;
+      User.update()
+        .then(() => res.status(201).json({ message: " Compte modifié !" }))
+        .catch(() => res.status(400).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+// // supprimer un utilisateur
+// exports.deleteUser = async (req, res, next) => {
+//   await User.destroy({
+//     where: {
+//       id: req.params.id,
+//     },
+//   })
+//     .then(() => res.status(201).json({ message: "Utilisateur supprimé !" }))
+//     .catch((error) => res.status(400).json({ error }));
+// };
