@@ -5,6 +5,9 @@
         à {{ post.createdAt | date:'HH:mm' }}
         par {{ post.user.firstName | uppercase }} {{ post.user.lastName | uppercase }} 
       </p>
+      <button class="deleteAdmin" 
+              (click)="onDelete()"><i class="far fa-trash-alt"></i>
+      </button>
     </div>
     <h4>{{ post.title | uppercase }}</h4>
     <p> {{ post.content }}</p>

@@ -23,7 +23,7 @@ const Post = sequelize.define("post", {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
-    allowNull: true,
+    // allowNull: true,
   },
   title: {
     type: Sequelize.TEXT,

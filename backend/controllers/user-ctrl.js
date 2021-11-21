@@ -11,97 +11,90 @@ const jwt = require("jsonwebtoken");
 //---Importer le modèle de l'utilisateur
 const User = require("../models/user-model");
 
-// // ------------Regex------------------
-// const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
-// const regexPassword =
-//   /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
 // ---fonction signup, création nouvel utilisateur--
-exports.signup = (req, res, next) => {
-  // if (
-  //   req.body.email == null ||
-  //   req.body.password == null ||
-  //   req.body.lastname == null ||
-  //   req.body.firstname == null
-  // ) {
-  //   return res.status(400).json({ error: "Données incomplètes" });
-  // }
-  // if (!regexEmail.test(req.body.email)) {
-  //   return res.status(400).json({ error: "Email non validé" });
-  // }
-  // if (!regexPassword.test(req.body.password)) {
-  //   return res.status(400).json({ error: "Mot de passe non validé" });
-  // }
+exports.signup = (req, res) => {
+  email = null;
+  if (!req.body.email.includes(("@" && ".com") || ".fr" || ".net")) {
+    return res.status(401).json({ error: "format email incorrect !" });
+  } else {
+    email = req.body.email;
+  }
   User.findOne({
     attributes: ["email"],
-    where: { email: req.body.email },
-  }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
-    .then((user) => {
-      if (!user) {
-        bcrypt
-          .hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonction async//
-          .then((hash) => {
-            User.create({
-              email: req.body.email,
-              password: hash,
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-            }).then((user) => {
-              res.status(201).json(user);
-            });
-          })
-          .catch((error) => res.status(400).json({ error }));
-      } else {
-        res
-          .status(400)
-          .json({ message: "un utilisateur avec cet email existe déjà" });
-      }
+    where: { email: MD5(req.body.email).toString() },
+  });
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) => {
+      User.create({
+        email: MD5(req.body.email).toString(),
+        password: hash,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        isAdmin: req.body.isAdmin,
+      })
+        .then(() => res.status(201).json({ message: "Utilisateur crée !" }))
+        .catch((error) => res.status(400).json({ error }));
     })
-
-    .catch((error) =>
-      res.status(500).json({ error: "Utilisateur déjà existant" })
-    );
+    .catch((error) => res.status(500).json({ error }));
 };
 
 //---fonction login - vérifie si un utilisateur existe déjà ---
-exports.login = (req, res, next) => {
-  User.findOne({ where: { email: req.body.email } })
+exports.login = (req, res) => {
+  User.findOne({
+    where: {
+      email: MD5(req.body.email).toString(),
+    },
+  })
     .then((user) => {
-      console.log(user);
       if (!user) {
-        return res.status(401).json({ error: " Utilisateur inconnu !" });
+        res.statusMessage = "utilisateur non trouvé";
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res
-              .status(401)
-              .json({ error: " le mot de passe est incorrect !" });
+            return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
-
-          // si comparaison ok, on renvoit un objet JSON contenant
           res.status(200).json({
-            // l'userId
             user_id: user.id,
-            // un token - fonction sign de jsonwebtoken
-            token: jwt.sign(
-              // 1er argument: données à encoder
-              { userId: user._id },
-              // 2eme: clé secrète encodage
-              "RANDOM_TOKEN_SECRET",
-              // 3eme: argument de configuration
-              { expiresIn: "24h" }
-            ),
+            isAdmin: user.isAdmin,
+            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+              expiresIn: "24h",
+            }),
           });
         })
-        .catch((error) => res.status(500).json({ error }));
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
 
+// pour récupérer un compte utilisateur.
+exports.getOneUser = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.status(404).json({
+        error: error,
+      });
+    });
+};
+
+// pour récupérer tous les comptes d'utilisateurs.
+exports.getAllUsers = (req, res) => {
+  User.findAll({})
+    .then((users) => res.status(200).json(users))
+    .catch((error) => res.status(400).json({ error }));
+};
+
 // Suppression d'un compte //
-exports.deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       User.destroy({ where: { id: req.params.id } }) // Méthode //
@@ -112,7 +105,7 @@ exports.deleteUser = (req, res, next) => {
 };
 
 // ----------modifier un utilisateur------------
-exports.modifyUser = (req, res, next) => {
+exports.modifyUser = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       lastName = req.body.lastName;
@@ -124,16 +117,13 @@ exports.modifyUser = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-// pour récupérer un compte utilisateur.
-exports.getOneUser = (req, res, next) => {
-  User.findOne({ where: { id: req.params.id } })
-    .then((user) => res.status(200).json(user))
-    .catch((error) => res.status(404).json({ error }));
-};
-
-// pour récupérer tous les comptes d'utilisateurs.
-exports.getAllUsers = (req, res, next) => {
-  User.findAll({ attributes: ["id", "firstName", "lastName"] })
-    .then((users) => res.status(200).json(users))
-    .catch((error) => res.status(400).json({ error }));
-};
+// // supprimer un utilisateur
+// exports.deleteUser = async (req, res, next) => {
+//   await User.destroy({
+//     where: {
+//       id: req.params.id,
+//     },
+//   })
+//     .then(() => res.status(201).json({ message: "Utilisateur supprimé !" }))
+//     .catch((error) => res.status(400).json({ error }));
+// };

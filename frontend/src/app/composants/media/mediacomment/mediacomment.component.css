@@ -6,5 +6,7 @@
 button {
   background-color: #fd2900;
   color: white;
+  border-radius: 10px;
   cursor: pointer;
+  margin-bottom: 0.4em;
 }

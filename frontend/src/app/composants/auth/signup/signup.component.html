@@ -1,21 +1,21 @@
-<form class="auth" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="signupForm">
   <h3>S'inscrire</h3>
-  <div class="input">
+  <div class="form-group">
     <label for="email"></label>
-    <input type="email" placeholder="Email" class="form-control" formControlName="email">
+    <input type="text" placeholder="Email" formControlName="email">
   </div>
-  <div class="input">
+  <div class="form-group">
     <label for="password"></label>
-    <input type="password" placeholder="Mot de passe" class="form-control" formControlName="password">
+    <input type="password" placeholder="Mot de passe" formControlName="password">
   </div>
-  <div class="input">
+  <div class="form-group">
     <label for="firstName"></label>
-    <input type="text" placeholder="Prénom" class="form-control" formControlName="firstName">
+    <input type="text" placeholder="Prénom" formControlName="firstName">
   </div>
-  <div class="input">
+  <div class="form-group">
     <label for="lastName"></label>
-    <input type="text" placeholder="Nom" class="form-control" formControlName="lastName">
+    <input type="text" placeholder="Nom" formControlName="lastName">
   </div>
-    <button class="btn-signup" type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
+  <button class="btn-signup" [disabled]="signupForm.invalid" (click)="onSubmit()">S'inscrire</button>
+  <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
 </form>
-<p class="text-danger">{{ errorMessage }}</p>

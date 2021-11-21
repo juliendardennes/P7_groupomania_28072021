@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from './service/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { PostService } from './service/post.service';
-import { AuthInterceptor } from './composants/auth-interceptor';
+import { AuthInterceptor } from './auth-interceptor';
 import { CommentService } from './service/comment.service';
 
 
@@ -16,7 +16,6 @@ import { SignupComponent } from './composants/auth/signup/signup.component';
 import { LoginComponent } from './composants/auth/login/login.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostFormComponent } from './composants/text/post-form/post-form.component';
-import { AuthGuard } from './service/auth-guard.service';
 import { PostListComponent } from './composants/text/post-list/post-list.component';
 import { CommentComponent } from './composants/text/comment/comment.component';
 import { CommentListComponent } from './composants/text/comment-list/comment-list.component';
@@ -29,9 +28,11 @@ import { MediacommentListComponent } from './composants/media/mediacomment-list/
 import { MediacommentComponent } from './composants/media/mediacomment/mediacomment.component';
 import { mediaComment } from './models/mediacomment.model';
 import { mediaCommentService } from './service/mediacomment.service';
+import { ProfilComponent } from './composants/profil/profil.component';
 
 const appRoutes: Routes = [
   { path: '', component: PostListComponent},
+  { path: 'profil', component: ProfilComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'post-form', component: PostFormComponent},
@@ -44,8 +45,6 @@ const appRoutes: Routes = [
   { path: 'mediapost-list', component: MediapostListComponent},
   { path: 'mediacomment-list', component: MediacommentListComponent},
   { path: 'mediacomment', component: MediacommentComponent},
-  // { path: 'post-form', canActivate: [AuthGuard], component: PostFormComponent},
-  // { path: 'post-list', canActivate: [AuthGuard], component: PostListComponent}
 ]
 
 
@@ -65,6 +64,7 @@ const appRoutes: Routes = [
     MediapostSingleComponent,
     MediacommentListComponent,
     MediacommentComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +74,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AppRoutingModule,
   ],
-  providers: [ AuthService, PostService, mediaPostService, CommentService, mediaCommentService, FormBuilder, HttpClientModule, HttpClient,
+  providers: [ AuthService, PostService, mediaPostService, 
+              CommentService, mediaCommentService, FormBuilder, HttpClientModule, HttpClient,
               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

@@ -25,10 +25,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  signOut(): void {
-    this.auth.logout();
+  onSignout() {
+    this.auth.logout;
+    sessionStorage.clear();
+    
+    this.router.navigate(['login']);
     window.location.reload();
-
   }
 
 }

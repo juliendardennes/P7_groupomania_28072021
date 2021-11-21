@@ -8,7 +8,7 @@ CommentMedia.belongsTo(User, { foreignKey: "user_id" });
 exports.createCommentMedia = (req, res, next) => {
   CommentMedia.create({
     user_id: req.body.user_id,
-    mediapost_id: req.body.post_id,
+    mediapost_id: req.body.mediapost_id,
     content: req.body.content,
   })
     .then((commentMedia) => res.status(201).json(commentMedia))

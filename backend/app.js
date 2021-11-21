@@ -36,18 +36,28 @@ app.use((req, res, next) => {
 
 //Transformer les données de la méthode POST en JSon //
 app.use(bodyParser.json());
-app.use(helmet()); // API plus sécurisée pour respecter l'OWASP
+
+// API plus sécurisée pour respecter l'OWASP
+app.use(helmet());
+
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 //route pour l'utilisateur
 app.use("/api/auth", userRoutes);
+
 // route pour les posts
 app.use("/api/posts", postRoutes);
+
 //route pour les commentaires
 app.use("/api/comments", commentRoutes);
+
 // route pour les posts médias
 app.use("/api/mediapost", mediaRoutes);
+
 // route pour les commentaires médias
 app.use("/api/commentMedia", commentMediaRoutes);
+
+//---Pour charger des fichiers qui se trouvent dans le répertoire images--
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;

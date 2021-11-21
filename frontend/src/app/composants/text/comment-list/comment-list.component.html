@@ -1,6 +1,6 @@
 <div class="comment-list-item" *ngFor="let comment of comments">
     <div class="comment-list" *ngIf="postId === comment.post_id">
-        <p> Le{{ comment.createdAt | date:'dd/MM/yyyy' }} 
+        <p> Le {{ comment.createdAt | date:'dd/MM/yyyy' }} 
             à {{ comment.createdAt | date:'HH:mm' }},
             {{ comment.user.firstName }} {{ comment.user.lastName }} a dit:
         </p>

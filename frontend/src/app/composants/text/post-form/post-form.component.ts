@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { AuthService } from 'src/app/service/auth.service';
 import { PostService } from 'src/app/service/post.service';
+import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-post-form',
@@ -13,8 +14,10 @@ import { PostService } from 'src/app/service/post.service';
 export class PostFormComponent implements OnInit {
 
   postForm: FormGroup;
-  mode: string;
   loading: boolean;
+  mode: string;
+  user: User;
+  userId: string;
   post: Post;
   errorMsg: string;
 
@@ -59,8 +62,8 @@ export class PostFormComponent implements OnInit {
 
   initModifyForm(post: Post) {
     this.postForm = this.formBuilder.group({
-      title: [this.post.title, Validators.required],
-      content: [this.post.content, Validators.required],
+      title: post.title,
+      content: post.content,
     });
   }
 
@@ -71,10 +74,10 @@ export class PostFormComponent implements OnInit {
     newPost.content = this.postForm.get('content').value;
     newPost.userId = JSON.parse(localStorage.getItem("user")).user_id;
     if (this.mode === 'new') {
-      this.posts.createPost(newPost).then(
+      this.posts.createPost(newPost.title, newPost.content).then(
         (response: { message: string }) => {
+          // window.location.reload();
           this.loading = false;
-          window.location.reload();
           this.router.navigate(['post-list']);
         }
       ).catch(

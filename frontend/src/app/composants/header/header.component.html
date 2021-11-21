@@ -5,10 +5,13 @@
   <div class="menu">
     <ul>
       <li routerLinkActive="active" *ngIf="!isAuth">
-        <a routerLink="../signup">S'identifier</a>
+        <a routerLink="../signup">S'inscrire</a>
       </li>
       <li routerLinkActive="active" *ngIf="!isAuth">
         <a routerLink="../login">Se connecter</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isAuth">
+        <a routerLink="../profil">Mon compte</a>
       </li>
       <li routerLinkActive="active" *ngIf="isAuth">
         <a routerLink="../mediapost-list">Media</a>
@@ -19,9 +22,10 @@
       <li routerLinkActive="active" *ngIf="isAuth">
         <a routerLink="../post-list">Accueil</a>
       </li>
-      <li *ngIf="isAuth" >
-        <a (click)="signOut()"  style="cursor: pointer;">Déconnexion</a>
+      <li routerLinkActive="active" *ngIf="isAuth" >
+        <a (click)="onSignout()" routerLink="../login">Déconnexion</a>
       </li>
     </ul>
   </div>
+  
 </div>  

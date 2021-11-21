@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
+  
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  
 }

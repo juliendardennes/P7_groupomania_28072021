@@ -1,5 +1,5 @@
 <form [formGroup]="mediacommentForm"(ngSubmit)="onSubmit()">
   <label for="content"></label>
   <input type="text" placeholder= "Commentez ici..." class="comment" formControlName="content" required>
-  <button [disabled]="mediacommentForm.invalid">Commentez !</button>
+  <button [disabled]="mediaCommentForm.invalid" >Commentez !</button>
 </form>
