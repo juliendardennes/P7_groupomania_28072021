@@ -1,12 +1,12 @@
-<form [formGroup]="postForm" *ngIf="!loading" >
+<form [formGroup]="postForm">
   <h4>Exprimez-vous</h4>
-  <div class="input">
+  <div class="form-group">
     <label for="title"></label>
-    <input type="text" placeholder="Titre" class="title"  formControlName="title"  required>
+    <input type="text" placeholder="Titre" class="form-control"  formControlName="title">
   </div>
-  <div class="input">
+  <div class="form-group">
     <label for="content"></label>
-    <input type="textarea" placeholder="Que voulez-vous dire ..." class="content" formControlName="content"  required>
+    <input type="textarea" placeholder="Que voulez-vous dire ..." class="form-control" formControlName="content">
     <button class="btn-post" [disabled]="postForm.invalid" (click)="onSubmit()" >Publier</button>
   </div>
    <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
